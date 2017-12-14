@@ -12,13 +12,13 @@ public interface HouseDao
         extends CrudRepository<House, Integer>{
 
     @Override
-    Optional<House> findById(Integer integer);
+    Optional<House> findById(Integer id);
 
     @Override
-    <S extends House> S save(S s);
+    House save(House house);
 
     //查找1,2,3,4室的房产信息
-    List<Integer> findIdByBedroom(Integer id);
+    List<Integer> findIdByBedroom(Integer bedroom);
 
 /*
     //正确？

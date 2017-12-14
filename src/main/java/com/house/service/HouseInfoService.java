@@ -40,7 +40,7 @@ public class HouseInfoService {
     }
 
     //根据价格区间挑选,价格区间(1左开区间， 2闭区间，3右开区间)
-    public Page<HouseInfo> findByArea(int interval){
+    public List<HouseInfo> findByArea(int interval){
 
         switch(interval){
             case  1 :
@@ -56,7 +56,7 @@ public class HouseInfoService {
     }
 
     //根据面积区间挑选，面积区间(1左开区间， 2闭区间，3右开区间)
-    Page<HouseInfo> findByPrice(int interval){
+    List<HouseInfo> findByPrice(int interval){
 
         switch(interval){
             case 1:
@@ -71,7 +71,7 @@ public class HouseInfoService {
     }
 
     //根据卧室数量选择
-    public Page<HouseInfo> find(int bedroom){
+    public List<HouseInfo> find(int bedroom){
 
         List<Integer> houseIds = new LinkedList<>();
         if(bedroom < 5)

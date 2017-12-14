@@ -9,19 +9,18 @@ import java.util.List;
 
 public interface ProxyIpDao extends
         CrudRepository<ProxyIp, Integer>,
-        PagingAndSortingRepository<ProxyIp, Integer>,
-        JpaSpecificationExecutor<ProxyIp>{
+        PagingAndSortingRepository<ProxyIp, Integer>{
 
     @Override
     List<ProxyIp> findAll();
 
     @Override
-    List<ProxyIp> findAllById(Iterable<Integer> proxyIps);
+    List<ProxyIp> findAllById(Iterable<Integer> ids);
 
-    List<ProxyIp> findAllByIdOrOrderByCreateTimeDesc(Iterable<Integer> proxyIps);
+    List<ProxyIp> findAllByIdInOrderByCreateTimeDesc(Iterable<Integer> ids);
 
-    List<ProxyIp> findDistinctPortByIdOrOrderByCreateTimeDesc(Iterable<Integer> proxyIps);
+    List<ProxyIp> findByIdBetweenOrderByCreateTimeDesc(int start, int end);
 
-
+    List<ProxyIp> findDistinctPortByIdOrderByCreateTimeDesc(Iterable<Integer> ids);
 
 }

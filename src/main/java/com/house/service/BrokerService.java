@@ -15,10 +15,6 @@ import javax.annotation.Resource;
 @Service
 public class BrokerService {
 
-
-    //??BrokerService与HouseinfoService顺序
-
-
     @Resource
     private BrokerDao brokerDao;
 
@@ -76,7 +72,7 @@ public class BrokerService {
         houseDesc = houseDescDao.save(houseDesc);
         houseInfo.setDescId(houseDesc.getId());
 
-        return houseInfoDao.save(houseInfo).equals(houseInfo);
+        return !houseInfoDao.save(houseInfo).equals(null);
 
     }
 

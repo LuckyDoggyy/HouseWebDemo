@@ -11,8 +11,8 @@ public interface HouseDescDao
 
 
     @Override
-    Optional<HouseDesc> findById(Integer integer);
+    Optional<HouseDesc> findById(Integer id);
 
-    @Override
-    <S extends HouseDesc> S save(S s);
+//    @Override
+//    HouseDesc save(HouseDesc houseDesc);
 }

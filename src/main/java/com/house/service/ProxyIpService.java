@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProxyIpService {
@@ -23,8 +24,18 @@ public class ProxyIpService {
             list.add(i);*/
     }
 
-    public List<ProxyIp> findAllByIdOrOrderByCreateTimeDesc(List<Integer> list){
-        return proxyIpDao.findAllByIdOrOrderByCreateTimeDesc(list);
+    public List<ProxyIp> findAllByIdInOrderByCreateTimeDesc(List<Integer> list){
+        return proxyIpDao.findAllByIdInOrderByCreateTimeDesc(list);
+    }
+
+    public List<ProxyIp> findByIdBetweenOrderByCreateTimeDesc(int start, int end){
+        return proxyIpDao.findByIdBetweenOrderByCreateTimeDesc(start, end);
+    }
+
+    public Optional<ProxyIp> findOne(int id){
+
+        return proxyIpDao.findById(id);
+
     }
 
     public static void main(String [] args){
@@ -32,7 +43,7 @@ public class ProxyIpService {
         ProxyIpService service = new ProxyIpService();
 
         service.init();
-        List<ProxyIp> result = service.findAllByIdOrOrderByCreateTimeDesc(list);
+        List<ProxyIp> result = service.findAllByIdInOrderByCreateTimeDesc(list);
 
         for(ProxyIp proxyIp : result)
             System.out.println(proxyIp.getId() + ":"

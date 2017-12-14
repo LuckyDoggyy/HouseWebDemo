@@ -30,15 +30,15 @@ public interface HouseInfoDao extends
     Page<HouseInfo> findAll(Pageable pageable);
 
     //面积区间
-    //@Query("from houseinfo where area between 2? and 3?")
-    Page<HouseInfo> findAllByAreaBetween(int start, int end);
+    //@Query("from houseinfo as hi where hi.area between 1? and 2?")
+    List<HouseInfo> findAllByAreaBetween(int start, int end);
 
     //价格区间
     //@Query("from houseinfo where price between 2? and 3?")
-    Page<HouseInfo> findAllByPriceBetween(int start, int end);
+    List<HouseInfo> findAllByPriceBetween(int start, int end);
 
     //根据卧室数量获得houseId，再根据houseId获得房产信息
-    Page<HouseInfo> findAllByHouseIdIn(Iterable<Integer> iterable);
+    List<HouseInfo> findAllByHouseIdIn(Iterable<Integer> iterable);
 
     //插入房产信息
     @Override

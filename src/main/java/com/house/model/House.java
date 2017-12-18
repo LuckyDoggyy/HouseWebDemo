@@ -1,6 +1,6 @@
 package com.house.model;
 
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
+
 
 import javax.persistence.*;
 import java.sql.Date;

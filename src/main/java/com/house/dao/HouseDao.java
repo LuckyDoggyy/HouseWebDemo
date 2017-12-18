@@ -4,15 +4,18 @@ import com.house.model.House;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface HouseDao
         extends CrudRepository<House, Integer>{
 
     @Override
-    Optional<House> findById(Integer id);
+    House findOne(Integer id);
 
     @Override
     House save(House house);

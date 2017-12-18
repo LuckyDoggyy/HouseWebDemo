@@ -16,15 +16,12 @@ import java.util.Optional;
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class Test {
 
-    @Resource(name = "mapper")
-    private ObjectMapper mapper;
-
     @Resource
     private ProxyIpService proxyIpService;
 
     @org.junit.Test
-    public void findAllByIdOrOrderByCreateTimeDesc(){
-        List<Integer> list = new LinkedList<Integer>();
+    public void findAllByIdOrderByCreateTimeDesc(){
+        List<Integer> list = new LinkedList<>();
         for(int i = 1000 ; i < 1999 ; i ++)
             list.add(i);
 
@@ -50,10 +47,10 @@ public class Test {
     @org.junit.Test
     public void findOne(){
 
-        Optional<ProxyIp> proxyIp = proxyIpService.findOne(1000);
+        ProxyIp proxyIp = proxyIpService.findOne(1000);
 
 
-        ProxyIp result = proxyIp.get();
+        ProxyIp result = proxyIp;
         System.out.println(result.getId() + " : " + result.getCreateTime());
     }
 

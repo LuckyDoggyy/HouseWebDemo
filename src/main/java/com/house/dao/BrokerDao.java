@@ -2,14 +2,16 @@ package com.house.dao;
 
 import com.house.model.Broker;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public interface BrokerDao
         extends CrudRepository<Broker, Integer>{
 
     @Override
-    Optional<Broker> findById(Integer id);
+    Broker findOne(Integer id);
 
     String findPasswordByUsername(String username);
 

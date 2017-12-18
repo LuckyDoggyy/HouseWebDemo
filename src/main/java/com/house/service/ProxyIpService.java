@@ -32,9 +32,9 @@ public class ProxyIpService {
         return proxyIpDao.findByIdBetweenOrderByCreateTimeDesc(start, end);
     }
 
-    public Optional<ProxyIp> findOne(int id){
+    public ProxyIp findOne(int id){
 
-        return proxyIpDao.findById(id);
+        return proxyIpDao.findOne(id);
 
     }
 

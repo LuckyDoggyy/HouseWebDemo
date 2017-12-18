@@ -76,5 +76,9 @@ public class BrokerService {
 
     }
 
+    public Broker findById(int brokerId){
+        return brokerDao.findOne(brokerId);
+    }
+
 
 }

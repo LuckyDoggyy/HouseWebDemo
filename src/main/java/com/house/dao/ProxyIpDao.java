@@ -4,9 +4,11 @@ import com.house.model.ProxyIp;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ProxyIpDao extends
         CrudRepository<ProxyIp, Integer>,
         PagingAndSortingRepository<ProxyIp, Integer>{
@@ -15,7 +17,7 @@ public interface ProxyIpDao extends
     List<ProxyIp> findAll();
 
     @Override
-    List<ProxyIp> findAllById(Iterable<Integer> ids);
+    List<ProxyIp> findAll(Iterable<Integer> ids);
 
     List<ProxyIp> findAllByIdInOrderByCreateTimeDesc(Iterable<Integer> ids);
 

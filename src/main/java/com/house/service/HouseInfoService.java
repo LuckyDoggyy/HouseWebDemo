@@ -39,6 +39,12 @@ public class HouseInfoService {
 
     }
 
+    public List<HouseInfo> findAll(){
+
+        return houseInfoDao.findAll();
+
+    }
+
     //根据价格区间挑选,价格区间(1左开区间， 2闭区间，3右开区间)
     public List<HouseInfo> findByArea(int interval){
 

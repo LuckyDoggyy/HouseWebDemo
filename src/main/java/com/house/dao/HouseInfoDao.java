@@ -2,7 +2,6 @@ package com.house.dao;
 
 
 import com.house.model.HouseInfo;
-import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,16 +9,16 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+
+@Repository
 public interface HouseInfoDao extends
         CrudRepository<HouseInfo, Integer> ,
         PagingAndSortingRepository<HouseInfo, Integer>,
@@ -28,6 +27,9 @@ public interface HouseInfoDao extends
     //分页显示
     @Override
     Page<HouseInfo> findAll(Pageable pageable);
+
+    @Override
+    List<HouseInfo> findAll();
 
     //面积区间
     //@Query("from houseinfo as hi where hi.area between 1? and 2?")

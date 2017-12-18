@@ -13,5 +13,7 @@ public class HouseService {
     @Resource
     private HouseDao houseDao;
 
-
+    public House findById(int houseId){
+        return houseDao.findOne(houseId);
+    }
 }

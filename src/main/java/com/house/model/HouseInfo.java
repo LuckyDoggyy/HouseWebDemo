@@ -1,6 +1,6 @@
 package com.house.model;
 
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
+
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -40,6 +40,21 @@ public class HouseInfo {
 
     @Column(name = "pub_time")
     private Time pubTime;
+
+    @Override
+    public String toString(){
+        return id + "," +
+                title + "," +
+                area + "," +
+                price + "," +
+                floor + "," +
+                totalFloor + "," +
+                descId + "," +
+                brokerId + "," +
+                houseId + "," +
+                pubTime;
+
+    }
 
     public int getId() {
         return id;

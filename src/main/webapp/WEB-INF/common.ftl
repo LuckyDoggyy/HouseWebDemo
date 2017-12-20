@@ -1,7 +1,6 @@
 <#import "/spring.ftl" as spring />
 
 
-
 <#macro page title>
 <#escape x as x?html>
 <!DOCTYPE html>
@@ -59,12 +58,15 @@
     </noscript>
 </head>
 <body>
-<#nested >
+<ul>
+    <@selection param="Area" count=3 conditions=["under 50m2", "50-100m2", "above100m2"] />
+    <@selection param="Price" count=3 conditions=["under 100W", "100-150W", "above 150W"] />
+    <@selection param="Bedroom" count=5 conditions=[1,2,3,4,">5"] />
+</ul>
+    <@infoTable />
 </body>
-
 </html>
 </#escape>
-
 </#macro>
 
 
@@ -75,6 +77,7 @@
             <#list 1..count as key>
                 <button type="submit" id="${param}${key}" value=${key} onclick="selectBy${param}(this.value)">${conditions[key - 1]}</button>
             </#list>
+    </li>
         <script>
             var selectBy${param} = function(obj) {
                 console.log(obj);
@@ -89,29 +92,17 @@
                         },
                     timeout: 5000,
                     success: function(result){
+                        $('table').remove();
+                        $('ul').after(result);
                     },
                     error: function(result){
                     }
                 });
             }
         </script>
-    </li>
-
 </#macro>
 
-<#macro infoTable houseInfos>
-<#--<script>
-    $.ajax({
-        url:'/showAllHouseInfos',
-        type:'post',
-        async:true,
-        timeout:5000,
-        datatype:'json',
-        success:function(result){
-            ${houseInfos} = result.data;
-        }
-    })
-</script>-->
+<#macro infoTable >
 <table border="1">
     <thead>
     <tr>
@@ -155,4 +146,3 @@
     </tbody>
 </table>
 </#macro>
-

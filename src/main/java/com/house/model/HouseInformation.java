@@ -39,6 +39,24 @@ public class HouseInformation {
         this.pubTime = pubTime;
     }
 
+    public String toString(){
+        return id + ", "
+                + title + ","
+                + area + ","
+                + price + ","
+                + floor + ","
+                + totalFloor + ","
+                + description+ ","
+                + bedroom + ","
+                + livroom + ","
+                + community + ","
+                + address + ","
+                + buildYear + ","
+                + name + ","
+                + phone + ","
+                + pubTime;
+    }
+
     public int getId() {
         return id;
     }

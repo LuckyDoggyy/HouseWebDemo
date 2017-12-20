@@ -11,8 +11,10 @@ import com.house.service.HouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,23 +73,39 @@ public class HomeController {
             @RequestParam(value="param") String param,
             @RequestParam(value="zone") int zone,
             Model model
-            ) throws Exception{
+            ){
         List<HouseInformation> houseInformations= new LinkedList();
-        if(param.equals("Area")){
+        if(param.equals("Area"))
             houseInformations = houseInfoService.findByArea(zone);
-            for(HouseInformation houseInformation : houseInformations)
-                System.out.println(houseInformation.toString());
-        }
         if(param.equals("Price"))
             houseInformations = houseInfoService.findByPrice(zone);
         if(param.equals("Bedroom"))
             houseInformations = houseInfoService.findByBedroom(zone);
+        for(HouseInformation houseInformation : houseInformations)
+            System.out.println(houseInformation.toString());
         model.addAttribute("houseInfos", houseInformations);
-        return "view/houseInfos";
-
+        return "/infotable";
     }
 
-
+/*    @RequestMapping("/selectBy")
+    public ModelAndView selectBy(
+            @RequestParam(value="param") String param,
+            @RequestParam(value="zone") int zone
+                ){
+        ModelAndView mav = new ModelAndView();
+        List<HouseInformation> houseInformations= new LinkedList();
+        if(param.equals("Area"))
+            houseInformations = houseInfoService.findByArea(zone);
+        if(param.equals("Price"))
+            houseInformations = houseInfoService.findByPrice(zone);
+        if(param.equals("Bedroom"))
+            houseInformations = houseInfoService.findByBedroom(zone);
+        for(HouseInformation houseInformation : houseInformations)
+            System.out.println(houseInformation.toString());
+        mav.setViewName("view/houseInfos");
+        mav.addObject("houseInfos", houseInformations);
+        return mav;
+    }*/
 
 
 

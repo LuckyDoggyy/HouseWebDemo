@@ -52,12 +52,24 @@ public class HouseInfoService {
         List<HouseInfo> houseInfos = new LinkedList<>();
 
         switch(interval){
-            case  1 :
+            case 1: {
                 houseInfos = houseInfoDao.findAllByAreaBetween(0, 50);
-            case 2:
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 2:{
                 houseInfos = houseInfoDao.findAllByAreaBetween(50,99);
-            case 3:
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 3:{
                 houseInfos = houseInfoDao.findAllByAreaGreaterThan(99);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
         }
 
         return fromHouseInfosToHouseInformations(houseInfos);
@@ -70,12 +82,24 @@ public class HouseInfoService {
         List<HouseInfo> houseInfos = new LinkedList<>();
 
         switch(interval){
-            case 1:
+            case 1:{
                 houseInfos = houseInfoDao.findAllByPriceBetween(0, 99);
-            case 2:
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 2:{
                 houseInfos = houseInfoDao.findAllByPriceBetween(99, 149);
-            case 3:
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 3:{
                 houseInfos = houseInfoDao.findAllByPriceGreaterThan(149);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
         }
 
         return fromHouseInfosToHouseInformations(houseInfos);
@@ -96,6 +120,9 @@ public class HouseInfoService {
             houseIds.add(house.getId());
 
         List<HouseInfo> houseInfos = houseInfoDao.findAllByHouseIdIn(houseIds);
+
+        for(HouseInfo houseInfo : houseInfos)
+            System.out.println(houseInfo.toString());
 
         return fromHouseInfosToHouseInformations(houseInfos);
 

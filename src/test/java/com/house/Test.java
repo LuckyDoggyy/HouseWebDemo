@@ -27,7 +27,6 @@ public class Test {
     @Resource
     private HouseInfoService houseInfoService;
 
-    private HomeController homeController;
 
     @org.junit.Test
     public void findAllByIdOrderByCreateTimeDesc(){
@@ -66,7 +65,7 @@ public class Test {
 
     @org.junit.Test
     public void findByAreaBetween() throws Exception{
-        List<HouseInformation> result = houseInfoService.findByArea(3);
+        List<HouseInformation> result = houseInfoService.findByArea(2);
         ObjectMapper objectMapper = new ObjectMapper();
         String str = "{\"houseInfos\":[";
         for(HouseInformation houseInformation : result)

@@ -35,7 +35,7 @@ public class BrokerService {
 
     //添加房型
     public boolean addNewHouse(
-            int bedroom, int livroom, int buildYear,
+            int bedroom, int livroom, String buildYear,
             String community, String address){
         House house = new House();
         house.setBedroom(bedroom);

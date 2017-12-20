@@ -3,8 +3,8 @@ package com.house.model;
 
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "house_info")
@@ -39,7 +39,7 @@ public class HouseInfo {
     private int houseId;
 
     @Column(name = "pub_time")
-    private Time pubTime;
+    private Date pubTime;
 
     @Override
     public String toString(){
@@ -128,11 +128,11 @@ public class HouseInfo {
         this.houseId = houseId;
     }
 
-    public Time getPubTime() {
+    public Date getPubTime() {
         return pubTime;
     }
 
-    public void setPubTime(Time pubTime) {
+    public void setPubTime(Date pubTime) {
         this.pubTime = pubTime;
     }
 }

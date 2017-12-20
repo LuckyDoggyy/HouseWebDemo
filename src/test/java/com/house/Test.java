@@ -1,11 +1,16 @@
 package com.house;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.house.controller.HomeController;
+import com.house.model.HouseInfo;
+import com.house.model.HouseInformation;
 import com.house.model.ProxyIp;
+import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -18,6 +23,11 @@ public class Test {
 
     @Resource
     private ProxyIpService proxyIpService;
+
+    @Resource
+    private HouseInfoService houseInfoService;
+
+    private HomeController homeController;
 
     @org.junit.Test
     public void findAllByIdOrderByCreateTimeDesc(){
@@ -53,5 +63,18 @@ public class Test {
         ProxyIp result = proxyIp;
         System.out.println(result.getId() + " : " + result.getCreateTime());
     }
+
+    @org.junit.Test
+    public void findByAreaBetween() throws Exception{
+        List<HouseInformation> result = houseInfoService.findByArea(3);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String str = "{\"houseInfos\":[";
+        for(HouseInformation houseInformation : result)
+            str += objectMapper.writeValueAsString(houseInformation) + ",";
+        str = str.substring(0, str.length()-1) + "]}";
+        System.out.println(str);
+    }
+
+
 
 }

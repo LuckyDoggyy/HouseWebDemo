@@ -31,6 +31,8 @@ public interface HouseInfoDao extends
     @Override
     List<HouseInfo> findAll();
 
+
+
     //面积区间
     //@Query("from houseinfo as hi where hi.area between 1? and 2?")
     List<HouseInfo> findAllByAreaBetween(int start, int end);
@@ -38,6 +40,10 @@ public interface HouseInfoDao extends
     //价格区间
     //@Query("from houseinfo where price between 2? and 3?")
     List<HouseInfo> findAllByPriceBetween(int start, int end);
+
+    List<HouseInfo> findAllByPriceGreaterThan(int start);
+
+    List<HouseInfo> findAllByAreaGreaterThan(int start);
 
     //根据卧室数量获得houseId，再根据houseId获得房产信息
     List<HouseInfo> findAllByHouseIdIn(Iterable<Integer> iterable);

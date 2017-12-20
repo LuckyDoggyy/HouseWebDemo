@@ -12,7 +12,7 @@ public class HouseDescService {
     @Resource
     private HouseDescDao houseDescDao;
 
-    public HouseDesc findByDescId(int descId){
+    public HouseDesc findAllByDescId(int descId){
         return houseDescDao.findOne(descId);
     }
 

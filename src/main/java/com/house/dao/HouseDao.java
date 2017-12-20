@@ -20,8 +20,12 @@ public interface HouseDao
     @Override
     House save(House house);
 
+    List<House> findAllByIdIn(Iterable<Integer> ids);
+
+//    List<House> findByIdIn(Iterable<Integer> ids);
+
     //查找1,2,3,4室的房产信息
-    List<Integer> findIdByBedroom(Integer bedroom);
+    List<House> findAllByBedroom(int bedroom);
 
 /*
     //正确？
@@ -31,6 +35,6 @@ public interface HouseDao
     */
 
     //4室以上房产信息
-    List<Integer> findIdByBedroomBetween(int start, int end);
+    List<House> findAllByBedroomGreaterThan(int start);
 
 }

@@ -8,6 +8,7 @@ com/house/model/HouseDesc.class
 com/house/model/House.class
 com/house/service/HouseDescService.class
 com/house/controller/BrokerController.class
+com/house/model/HouseInformation.class
 com/house/model/HouseInfo.class
 com/house/controller/HomeController.class
 com/house/dao/BrokerDao.class

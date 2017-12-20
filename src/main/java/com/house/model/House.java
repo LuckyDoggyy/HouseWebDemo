@@ -26,8 +26,18 @@ public class House {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "builfyear")
-    private int buildYear;
+    @Column(name = "build_year")
+    private String buildYear;
+
+    public String toString(){
+
+        return bedroom + ", "
+                + livroom + ", "
+                + community +", "
+                + address +", "
+                + buildYear;
+
+    }
 
     public int getId() {
         return id;
@@ -69,11 +79,11 @@ public class House {
         this.address = address;
     }
 
-    public int getBuildYear() {
+    public String getBuildYear() {
         return buildYear;
     }
 
-    public void setBuildYear(int buildYear) {
+    public void setBuildYear(String buildYear) {
         this.buildYear = buildYear;
     }
 }

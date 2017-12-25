@@ -18,4 +18,6 @@ public interface BrokerDao
 
     List<Broker> findAllByIdIn(Iterable<Integer> ids);
 
+    Broker findByUsername(String username);
+
 }

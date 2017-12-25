@@ -92,8 +92,8 @@
                         },
                     timeout: 5000,
                     success: function(result){
-                        $.('table').remove();
-                        $.('ul').after(result);
+                        $('table').remove();
+                        $('ul').after(result);
                     },
                     error: function(result){
                     }

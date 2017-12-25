@@ -80,5 +80,12 @@ public class BrokerService {
         return brokerDao.findOne(brokerId);
     }
 
+    public String findPasswordByUsername(String username){
+        return brokerDao.findPasswordByUsername(username);
+    }
+
+    public Broker findByUsername(String username){
+        return brokerDao.findByUsername(username);
+    }
 
 }

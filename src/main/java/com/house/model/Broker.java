@@ -22,6 +22,17 @@ public class Broker {
     @Column(name = "password")
     private String password;
 
+    @Override
+    public String toString(){
+
+        return id + ", " +
+               name + ", " +
+               phone + ", " +
+               username + ", " +
+                password;
+
+    }
+
     public int getId() {
         return id;
     }

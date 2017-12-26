@@ -1,3 +1,4 @@
+/*
 package com.house.security;
 
 import com.house.model.Broker;
@@ -5,7 +6,6 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.realm.AuthenticatingRealm;
-import sun.plugin2.message.GetAuthenticationReplyMessage;
 
 public class BrokerAuthenticationRealm extends AuthenticatingRealm {
 
@@ -24,3 +24,4 @@ public class BrokerAuthenticationRealm extends AuthenticatingRealm {
     }
 
 }
+*/

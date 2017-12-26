@@ -58,6 +58,7 @@
     </noscript>
 </head>
 <body>
+<#nested >
 <ul>
     <@selection param="Area" count=3 conditions=["under 50m2", "50-100m2", "above100m2"] />
     <@selection param="Price" count=3 conditions=["under 100W", "100-150W", "above 150W"] />

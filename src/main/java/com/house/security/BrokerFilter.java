@@ -1,3 +1,4 @@
+/*
 package com.house.security;
 
 import com.house.model.Broker;
@@ -17,15 +18,10 @@ public class BrokerFilter extends AuthenticatingFilter {
 
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response){
-//        String password = request.getParameter("password");
+        String password = request.getParameter("password");
         String username = request.getParameter("uesrname");
         Broker broker = brokerService.findByUsername(username);
 
-
-        BrokerToken brokerToken = new BrokerToken(broker.getId());
-        brokerToken.setBroker(broker);
-
-        return brokerToken;
     }
 
     @Override
@@ -40,3 +36,4 @@ public class BrokerFilter extends AuthenticatingFilter {
     }
 
 }
+*/

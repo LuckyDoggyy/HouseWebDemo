@@ -5,12 +5,15 @@
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/dao/BrokerDao.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/dao/HouseInfoDao.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/dao/ProxyIpDao.java
+/home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/security/BrokerFilter.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/model/HouseDesc.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/model/Broker.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/model/House.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/service/HouseDescService.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/service/BrokerService.java
+/home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/security/BrokerAuthenticationRealm.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/service/HouseService.java
+/home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/security/BrokerToken.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/model/ProxyIp.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/service/ProxyIpService.java
 /home/xuxyu/Anjuke/HouseWebDemo/src/main/java/com/house/controller/BrokerController.java

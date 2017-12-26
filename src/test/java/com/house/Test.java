@@ -2,9 +2,11 @@ package com.house;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.house.controller.HomeController;
+import com.house.model.Broker;
 import com.house.model.HouseInfo;
 import com.house.model.HouseInformation;
 import com.house.model.ProxyIp;
+import com.house.service.BrokerService;
 import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
 import org.junit.runner.RunWith;
@@ -26,6 +28,9 @@ public class Test {
 
     @Resource
     private HouseInfoService houseInfoService;
+
+    @Resource
+    private BrokerService brokerService;
 
 
     @org.junit.Test
@@ -72,6 +77,12 @@ public class Test {
             str += objectMapper.writeValueAsString(houseInformation) + ",";
         str = str.substring(0, str.length()-1) + "]}";
         System.out.println(str);
+    }
+
+    @org.junit.Test
+    public void findByUsername(){
+        Broker broker = brokerService.findByUsername("xxy");
+        System.out.println(broker.toString());
     }
 
 

@@ -85,10 +85,8 @@ public class HomeController {
     public Map login(
             @RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password,
-            @CookieValue(name = "JSESSIONID", required = false) String jsessionid,
             HttpSession session
             ) {
-        System.out.println("login jsessionid : " + jsessionid );
         Map<String, String> result = new HashMap<>();
         Broker broker = brokerService.findByUsername(username);
         if (broker == null) {

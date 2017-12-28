@@ -3,8 +3,8 @@
 <@common.page "House Informations" >
 <div>
     <#if broker?exists>
-        <div><a href="/#">${broker.name}</a></div>
-        <div></div><a id="outhref" href="/logout">退出</a></div>
+        <a href="/#">${broker.name}</a>
+        <a id="outhref" href="/logout">退出</a>
         <#else >
         <a href="/welcome">登录</a>
     </#if>

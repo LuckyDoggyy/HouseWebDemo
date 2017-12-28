@@ -24,6 +24,7 @@
                 if(result.status == "success"){
                     window.alert("Login successful. Jump to house information.");
                     window.location.href="/houseInfos";
+                    return false;
                 }else{
                     window.alert(result.status);
                 }

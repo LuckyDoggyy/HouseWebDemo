@@ -37,25 +37,28 @@ public class HomeController {
     @Resource
     private HouseService houseService;
 
-    private static HttpSession session;
+    private static Map<String,HttpSession> sessions = new HashMap<>();
 
     @RequestMapping(value = {"/","/houseInfos"}, method = RequestMethod.GET)
     public String showAllHouseInfosWithSession(
+            @CookieValue(value = "JSESSIONID", required = false) String jsessionid,
             Model model
                     ) {
         List<HouseInformation> houseInfos = houseInfoService.findAll();
         for (HouseInformation houseInformation : houseInfos)
             System.out.println(houseInformation.toString());
+        System.out.println("login jsessionid : " + jsessionid);
         Broker broker = new Broker();
-        try {
-//            HttpSession session = sessions.get(username);
-            broker = (Broker) session.getAttribute("broker");
-        } catch (Exception exception) {
-            System.out.println("Exception throws.");
+        try{
+            HttpSession session = sessions.get(jsessionid);
+            System.out.println(sessions.size() + "\n\n\n\n\n\n");
+            broker = (Broker)session.getAttribute("broker");
+            if (broker.getUsername() != null)
+                model.addAttribute("broker", broker);
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        System.out.println(broker.toString());
-        if (broker.getUsername() != null && !broker.getUsername().equals(""))
-            model.addAttribute("broker", broker);
+//        System.out.println(broker.toString());
         model.addAttribute("houseInfos", houseInfos);
         /*
         model.addAttribute("pageNumber", pageNumber);
@@ -65,8 +68,18 @@ public class HomeController {
     }
 
     @RequestMapping("/logout")
-    public String logout() {
-        session.invalidate();
+    public String logout(
+            @CookieValue(value = "JSESSIONID", required = false) String jsessionid
+            ) {
+        System.out.println("logout jsessionid : " +jsessionid);
+        for(String key : sessions.keySet())
+            System.out.println(key);
+        System.out.println("\n\n\n\n\n\n\n\n\n\n");
+        try{
+        sessions.get(jsessionid).removeAttribute("broker");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return "redirect:/houseInfos";
     }
 
@@ -75,7 +88,7 @@ public class HomeController {
             @RequestParam(value = "param") String param,
             @RequestParam(value = "zone") int zone,
             Model model
-    ) {
+        ) {
         List<HouseInformation> houseInformations = new LinkedList();
         if (param.equals("Area"))
             houseInformations = houseInfoService.findByArea(zone);
@@ -89,26 +102,6 @@ public class HomeController {
         return "/infotable";
     }
 
-/*    @RequestMapping("/selectBy")
-    public ModelAndView selectBy(
-            @RequestParam(value="param") String param,
-            @RequestParam(value="zone") int zone
-                ){
-        ModelAndView mav = new ModelAndView();
-        List<HouseInformation> houseInformations= new LinkedList();
-        if(param.equals("Area"))
-            houseInformations = houseInfoService.findByArea(zone);
-        if(param.equals("Price"))
-            houseInformations = houseInfoService.findByPrice(zone);
-        if(param.equals("Bedroom"))
-            houseInformations = houseInfoService.findByBedroom(zone);
-        for(HouseInformation houseInformation : houseInformations)
-            System.out.println(houseInformation.toString());
-        mav.setViewName("view/houseInfos");
-        mav.addObject("houseInfos", houseInformations);
-        return mav;
-    }*/
-
     @RequestMapping("/welcome")
     public String welcom() {
         return "view/login";
@@ -117,25 +110,30 @@ public class HomeController {
     @RequestMapping("/login")
     @ResponseBody
     public Map login(
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "password") String password,
+            @CookieValue(name = "JSESSIONID", required = false) String jsessionid,
             HttpServletRequest request
-    ) {
-        System.out.println("request test");
+            ) {
+        System.out.println("login jsessionid : " + jsessionid );
         Map<String, String> result = new HashMap<>();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        System.out.println(username + ":" + password);
-        session = request.getSession();
         Broker broker = brokerService.findByUsername(username);
         if (broker == null) {
             result.put("status", "Login failed, there is no this user.");
         } else if (password.equals(broker.getPassword())) {
+            HttpSession session = request.getSession();
             session.setAttribute("broker", broker);
-//            sessions.put(username, session);
+            Broker b = (Broker)session.getAttribute("broker");
+            System.out.println(b.getId() + b.getUsername() + b.getPhone() + b.getName() + b.getPassword());
+            System.out.println("\n\n\n\n\n\n\n\n\n");
+            sessions.put(jsessionid, session);
             result.put("status", "success");
         } else {
             result.put("status", "Login failed, password is not right.");
         }
         System.out.println(result);
+
+        System.out.println(sessions.size() + "\n\n\n\n\n\n");
         return result;
     }
 
@@ -165,6 +163,26 @@ public class HomeController {
         System.out.println(house.toString());
         return (new ObjectMapper()).writeValueAsString(house);
     }
+
+    /*    @RequestMapping("/selectBy")
+    public ModelAndView selectBy(
+            @RequestParam(value="param") String param,
+            @RequestParam(value="zone") int zone
+                ){
+        ModelAndView mav = new ModelAndView();
+        List<HouseInformation> houseInformations= new LinkedList();
+        if(param.equals("Area"))
+            houseInformations = houseInfoService.findByArea(zone);
+        if(param.equals("Price"))
+            houseInformations = houseInfoService.findByPrice(zone);
+        if(param.equals("Bedroom"))
+            houseInformations = houseInfoService.findByBedroom(zone);
+        for(HouseInformation houseInformation : houseInformations)
+            System.out.println(houseInformation.toString());
+        mav.setViewName("view/houseInfos");
+        mav.addObject("houseInfos", houseInformations);
+        return mav;
+    }*/
 
 
 }

@@ -1,6 +1,5 @@
 package com.house.controller;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.house.model.Broker;
 import com.house.model.House;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -37,58 +35,24 @@ public class HomeController {
     @Resource
     private HouseService houseService;
 
-    private static Map<String,HttpSession> sessions = new HashMap<>();
-
     @RequestMapping(value = {"/","/houseInfos"}, method = RequestMethod.GET)
-    public String showAllHouseInfosWithSession(
-//            @CookieValue(value = "JSESSIONID", required = false) String jsessionid,
-            HttpSession session,
-            Model model
-
-                    ) {
+    public String showAllHouseInfosWithSession(HttpSession session, Model model) {
         List<HouseInformation> houseInfos = houseInfoService.findAll();
-        for (HouseInformation houseInformation : houseInfos)
+        for (HouseInformation houseInformation : houseInfos){
             System.out.println(houseInformation.toString());
-        String jsessionid = session.getId();
-        System.out.println("login jsessionid : " + session.getId());
-        Broker broker = new Broker();
-        try{
-            System.out.println(sessions.size() + "\n\n\n\n\n\n");
-            broker = (Broker)session.getAttribute("broker");
-            if (broker.getUsername() != null)
-                model.addAttribute("broker", broker);
-        }catch(Exception e){
-            e.printStackTrace();
         }
-//        System.out.println(broker.toString());
+        System.out.println("login jsessionid : " + session.getId());
+        Broker broker = (Broker)session.getAttribute("broker");
+            if(broker != null){
+                model.addAttribute("broker", broker);
+            }
         model.addAttribute("houseInfos", houseInfos);
-        /*
-        model.addAttribute("pageNumber", pageNumber);
-        model.addAttribute("pageSize",pageSize);
-        */
         return "view/houseInfos";
     }
 
     @RequestMapping("/logout")
-    public String logout(
-//            @CookieValue(value = "JSESSIONID", required = false) String jsessionid
-            HttpSession session
-            ) {
-        String jsessionid = session.getId();
-        System.out.println("logout jsessionid : " +jsessionid);
-        for(String key : sessions.keySet())
-            System.out.println(key);
-        System.out.println("\n\n\n\n\n\n\n\n\n\n");
-        try{
-
-//            HttpSession session =  sessions.get(null);
-            Broker broker = (Broker)session.getAttribute("broker");
-            System.out.println(broker.toString());
-            session.removeAttribute("broker");
-            sessions.put(jsessionid, session);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+    public String logout(HttpSession session) {
+        session.removeAttribute("broker");
         return "redirect:/houseInfos";
     }
 
@@ -134,14 +98,12 @@ public class HomeController {
             Broker b = (Broker)session.getAttribute("broker");
             System.out.println(b.getId() + b.getUsername() + b.getPhone() + b.getName() + b.getPassword());
             System.out.println("\n\n\n\n\n\n\n\n\n");
-            sessions.put(session.getId(), session);
             result.put("status", "success");
         } else {
             result.put("status", "Login failed, password is not right.");
         }
         System.out.println(result);
 
-        System.out.println(sessions.size() + "\n\n\n\n\n\n");
         return result;
     }
 
@@ -171,26 +133,5 @@ public class HomeController {
         System.out.println(house.toString());
         return (new ObjectMapper()).writeValueAsString(house);
     }
-
-    /*    @RequestMapping("/selectBy")
-    public ModelAndView selectBy(
-            @RequestParam(value="param") String param,
-            @RequestParam(value="zone") int zone
-                ){
-        ModelAndView mav = new ModelAndView();
-        List<HouseInformation> houseInformations= new LinkedList();
-        if(param.equals("Area"))
-            houseInformations = houseInfoService.findByArea(zone);
-        if(param.equals("Price"))
-            houseInformations = houseInfoService.findByPrice(zone);
-        if(param.equals("Bedroom"))
-            houseInformations = houseInfoService.findByBedroom(zone);
-        for(HouseInformation houseInformation : houseInformations)
-            System.out.println(houseInformation.toString());
-        mav.setViewName("view/houseInfos");
-        mav.addObject("houseInfos", houseInformations);
-        return mav;
-    }*/
-
 
 }

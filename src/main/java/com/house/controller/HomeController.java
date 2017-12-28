@@ -41,16 +41,18 @@ public class HomeController {
 
     @RequestMapping(value = {"/","/houseInfos"}, method = RequestMethod.GET)
     public String showAllHouseInfosWithSession(
-            @CookieValue(value = "JSESSIONID", required = false) String jsessionid,
+//            @CookieValue(value = "JSESSIONID", required = false) String jsessionid,
+            HttpSession session,
             Model model
+
                     ) {
         List<HouseInformation> houseInfos = houseInfoService.findAll();
         for (HouseInformation houseInformation : houseInfos)
             System.out.println(houseInformation.toString());
-        System.out.println("login jsessionid : " + jsessionid);
+        String jsessionid = session.getId();
+        System.out.println("login jsessionid : " + session.getId());
         Broker broker = new Broker();
         try{
-            HttpSession session = sessions.get(jsessionid);
             System.out.println(sessions.size() + "\n\n\n\n\n\n");
             broker = (Broker)session.getAttribute("broker");
             if (broker.getUsername() != null)
@@ -69,14 +71,21 @@ public class HomeController {
 
     @RequestMapping("/logout")
     public String logout(
-            @CookieValue(value = "JSESSIONID", required = false) String jsessionid
+//            @CookieValue(value = "JSESSIONID", required = false) String jsessionid
+            HttpSession session
             ) {
+        String jsessionid = session.getId();
         System.out.println("logout jsessionid : " +jsessionid);
         for(String key : sessions.keySet())
             System.out.println(key);
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
         try{
-        sessions.get(jsessionid).removeAttribute("broker");
+
+//            HttpSession session =  sessions.get(null);
+            Broker broker = (Broker)session.getAttribute("broker");
+            System.out.println(broker.toString());
+            session.removeAttribute("broker");
+            sessions.put(jsessionid, session);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -113,7 +122,7 @@ public class HomeController {
             @RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password,
             @CookieValue(name = "JSESSIONID", required = false) String jsessionid,
-            HttpServletRequest request
+            HttpSession session
             ) {
         System.out.println("login jsessionid : " + jsessionid );
         Map<String, String> result = new HashMap<>();
@@ -121,12 +130,11 @@ public class HomeController {
         if (broker == null) {
             result.put("status", "Login failed, there is no this user.");
         } else if (password.equals(broker.getPassword())) {
-            HttpSession session = request.getSession();
             session.setAttribute("broker", broker);
             Broker b = (Broker)session.getAttribute("broker");
             System.out.println(b.getId() + b.getUsername() + b.getPhone() + b.getName() + b.getPassword());
             System.out.println("\n\n\n\n\n\n\n\n\n");
-            sessions.put(jsessionid, session);
+            sessions.put(session.getId(), session);
             result.put("status", "success");
         } else {
             result.put("status", "Login failed, password is not right.");

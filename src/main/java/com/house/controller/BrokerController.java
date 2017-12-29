@@ -68,6 +68,26 @@ public class BrokerController {
         return "/view/addhouseinfos";
     }
 
+    @RequestMapping("/addHouse")
+    @ResponseBody
+    public Map addHouse(
+            @RequestParam(name = "livroom") int livroom,
+            @RequestParam(name = "bedroom") int bedroom,
+            @RequestParam(name = "community") String community,
+            @RequestParam(name = "address") String address,
+            @RequestParam(name = "buildYear") String buildYear
+            ){
+        Map<String, String> result = new HashMap<>();
+        House house = brokerService.addNewHouse(bedroom,livroom,buildYear,community,address);
+        System.out.println(house.toString());
+        if(house != null){
+            result.put("status","Add new house successfully.");
+        }else{
+            result.put("status","Failed to add a new house.");
+        }
+        return result;
+    }
+
 
 
 

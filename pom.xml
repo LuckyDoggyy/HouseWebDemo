@@ -91,11 +91,11 @@
             <version>0.24</version>
         </dependency>-->
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.anjuke.xinfang.security</groupId>
             <artifactId>shiro-freemarker-tags</artifactId>
             <version>0.1</version>
-        </dependency>
+        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>

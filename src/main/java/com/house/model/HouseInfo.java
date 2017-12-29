@@ -41,6 +41,20 @@ public class HouseInfo {
     @Column(name = "pub_time")
     private Date pubTime;
 
+    public HouseInfo(){}
+
+    public HouseInfo(String title, int area, int price, int floor, int totalFloor, int descId, int brokerId, int houseId, Date pubTime) {
+        this.title = title;
+        this.area = area;
+        this.price = price;
+        this.floor = floor;
+        this.totalFloor = totalFloor;
+        this.descId = descId;
+        this.brokerId = brokerId;
+        this.houseId = houseId;
+        this.pubTime = pubTime;
+    }
+
     @Override
     public String toString(){
         return id + "," +

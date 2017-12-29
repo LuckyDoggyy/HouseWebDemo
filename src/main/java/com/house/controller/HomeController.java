@@ -11,7 +11,10 @@ import com.house.service.HouseInfoService;
 import com.house.service.HouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -35,17 +38,13 @@ public class HomeController {
     @Resource
     private HouseService houseService;
 
-    @RequestMapping(value = {"/","/houseInfos"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/houseInfos"}, method = RequestMethod.GET)
     public String showAllHouseInfosWithSession(HttpSession session, Model model) {
         List<HouseInformation> houseInfos = houseInfoService.findAll();
-        for (HouseInformation houseInformation : houseInfos){
-            System.out.println(houseInformation.toString());
+        Broker broker = (Broker) session.getAttribute("broker");
+        if (broker != null) {
+            model.addAttribute("broker", broker);
         }
-        System.out.println("login jsessionid : " + session.getId());
-        Broker broker = (Broker)session.getAttribute("broker");
-            if(broker != null){
-                model.addAttribute("broker", broker);
-            }
         model.addAttribute("houseInfos", houseInfos);
         return "view/houseInfos";
     }
@@ -61,7 +60,7 @@ public class HomeController {
             @RequestParam(value = "param") String param,
             @RequestParam(value = "zone") int zone,
             Model model
-        ) {
+    ) {
         List<HouseInformation> houseInformations = new LinkedList();
         if (param.equals("Area"))
             houseInformations = houseInfoService.findByArea(zone);
@@ -69,8 +68,6 @@ public class HomeController {
             houseInformations = houseInfoService.findByPrice(zone);
         if (param.equals("Bedroom"))
             houseInformations = houseInfoService.findByBedroom(zone);
-        for (HouseInformation houseInformation : houseInformations)
-            System.out.println(houseInformation.toString());
         model.addAttribute("houseInfos", houseInformations);
         return "/infotable";
     }
@@ -86,21 +83,18 @@ public class HomeController {
             @RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password,
             HttpSession session
-            ) {
+    ) {
         Map<String, String> result = new HashMap<>();
         Broker broker = brokerService.findByUsername(username);
         if (broker == null) {
             result.put("status", "Login failed, there is no this user.");
         } else if (password.equals(broker.getPassword())) {
             session.setAttribute("broker", broker);
-            Broker b = (Broker)session.getAttribute("broker");
-            System.out.println(b.getId() + b.getUsername() + b.getPhone() + b.getName() + b.getPassword());
-            System.out.println("\n\n\n\n\n\n\n\n\n");
+            Broker b = (Broker) session.getAttribute("broker");
             result.put("status", "success");
         } else {
             result.put("status", "Login failed, password is not right.");
         }
-        System.out.println(result);
 
         return result;
     }
@@ -128,7 +122,6 @@ public class HomeController {
     public String selectHouse(@RequestParam(value = "houseId") int houseId
     ) throws Exception {
         House house = houseService.findById(houseId);
-        System.out.println(house.toString());
         return (new ObjectMapper()).writeValueAsString(house);
     }
 

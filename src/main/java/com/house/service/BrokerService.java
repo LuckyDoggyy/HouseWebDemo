@@ -11,6 +11,7 @@ import com.house.model.HouseInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 public class BrokerService {
@@ -34,7 +35,7 @@ public class BrokerService {
     }
 
     //添加房型
-    public boolean addNewHouse(
+    public House addNewHouse(
             int bedroom, int livroom, String buildYear,
             String community, String address){
         House house = new House();
@@ -44,35 +45,21 @@ public class BrokerService {
         house.setCommunity(community);
         house.setAddress(address);
 
-        return houseDao.save(house).equals(null);
+        return houseDao.save(house);
     }
 
     //添加房产信息
-    public boolean addNewHouseInfo(
-            int area, int floor, int totalFloor, int price,
-            String description, String title
-            ,House house){
-        HouseInfo houseInfo = new HouseInfo();
-        houseInfo.setArea(area);
-
-        //添加代理人id
-        //houseInfo.setBrokerId();
-
-
-
-        houseInfo.setArea(area);
-        houseInfo.setFloor(floor);
-        houseInfo.setTotalFloor(totalFloor);
-        houseInfo.setPrice(price);
-        houseInfo.setTitle(title);
-
-        //添加描述
-        HouseDesc houseDesc = new HouseDesc();
-        houseDesc.setDescription(description);
+    public HouseInfo addNewHouseInfo(String title,
+                                     int area, int floor, int totalFloor, int price,
+                                     String description, int houseId, int brokerId){
+        HouseDesc houseDesc = new HouseDesc(description);
         houseDesc = houseDescDao.save(houseDesc);
-        houseInfo.setDescId(houseDesc.getId());
+        HouseInfo houseInfo = new HouseInfo(
+                title, area, price,floor, totalFloor,
+                houseDesc.getId(), houseId,
+                brokerId, new Date());
 
-        return !houseInfoDao.save(houseInfo).equals(null);
+        return houseInfoDao.save(houseInfo);
 
     }
 

@@ -18,6 +18,9 @@ public interface HouseDao
     House findOne(Integer id);
 
     @Override
+    List<House> findAll();
+
+    @Override
     House save(House house);
 
     List<House> findAllByIdIn(Iterable<Integer> ids);

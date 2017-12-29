@@ -14,6 +14,12 @@ public class HouseDesc {
     @Column(name = "description")
     private String description;
 
+    public HouseDesc(){}
+
+    public HouseDesc(String description) {
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

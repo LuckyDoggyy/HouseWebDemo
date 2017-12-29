@@ -16,6 +16,8 @@ public class HouseDescService {
         return houseDescDao.findOne(descId);
     }
 
-
+    public HouseDesc save(HouseDesc houseDesc){
+        return houseDescDao.save(houseDesc);
+    }
 
 }

@@ -1,6 +1,4 @@
 <#import "/spring.ftl" as spring />
-
-
 <#macro page title>
 <#escape x as x?html>
 <!DOCTYPE html>
@@ -69,9 +67,6 @@
 </html>
 </#escape>
 </#macro>
-
-
-
 <#macro selection param count conditions >
     <li>
         <label>${param}:</label>

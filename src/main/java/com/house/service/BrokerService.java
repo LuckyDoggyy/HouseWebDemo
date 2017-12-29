@@ -56,8 +56,8 @@ public class BrokerService {
         houseDesc = houseDescDao.save(houseDesc);
         HouseInfo houseInfo = new HouseInfo(
                 title, area, price,floor, totalFloor,
-                houseDesc.getId(), houseId,
-                brokerId, new Date());
+                houseDesc.getId(), brokerId,
+                houseId, new Date());
 
         return houseInfoDao.save(houseInfo);
 

@@ -9,37 +9,7 @@
     <bookmark url="file://$PROJECT_DIR$/../errorlog/src/main/java/com/anjuke/controller/HomeController.java" description="Model model) {" line="107" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29a12dac-1c7c-4f5b-b948-559cf6f4063a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/addhouseinfos.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo.war" afterPath="$PROJECT_DIR$/target/HouseWebDemo.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/controller/BrokerController.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/controller/BrokerController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/controller/HomeController.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/controller/HomeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/dao/HouseDao.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/dao/HouseDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/dao/HouseDescDao.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/dao/HouseDescDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/model/HouseInfo.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/model/HouseInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/service/HouseDescService.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/service/HouseDescService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/service/HouseService.class" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/classes/com/house/service/HouseService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/controller/BrokerController.class" afterPath="$PROJECT_DIR$/target/classes/com/house/controller/BrokerController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/controller/HomeController.class" afterPath="$PROJECT_DIR$/target/classes/com/house/controller/HomeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/dao/HouseDao.class" afterPath="$PROJECT_DIR$/target/classes/com/house/dao/HouseDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/dao/HouseDescDao.class" afterPath="$PROJECT_DIR$/target/classes/com/house/dao/HouseDescDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/model/HouseInfo.class" afterPath="$PROJECT_DIR$/target/classes/com/house/model/HouseInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/service/HouseDescService.class" afterPath="$PROJECT_DIR$/target/classes/com/house/service/HouseDescService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/house/service/HouseService.class" afterPath="$PROJECT_DIR$/target/classes/com/house/service/HouseService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/controller/BrokerController.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/controller/BrokerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/controller/HomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/dao/HouseDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/dao/HouseDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/dao/HouseDescDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/dao/HouseDescDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/model/HouseDesc.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/model/HouseDesc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/model/HouseInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/model/HouseInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/service/BrokerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/service/BrokerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/service/HouseDescService.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/service/HouseDescService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/house/service/HouseService.java" afterPath="$PROJECT_DIR$/src/main/java/com/house/service/HouseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/houseInfos.ftl" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/houseInfos.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/view/houseInfos.ftl" afterPath="$PROJECT_DIR$/target/HouseWebDemo/WEB-INF/view/houseInfos.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
-    </list>
+    <list default="true" id="29a12dac-1c7c-4f5b-b948-559cf6f4063a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16972,7 +16942,7 @@
       <workItem from="1514424506731" duration="17383000" />
       <workItem from="1514445833739" duration="2040000" />
       <workItem from="1514451411392" duration="3810000" />
-      <workItem from="1514511305802" duration="5639000" />
+      <workItem from="1514511305802" duration="5732000" />
     </task>
     <servers />
   </component>
@@ -17009,7 +16979,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241122000" />
+    <option name="totallyTimeSpent" value="241215000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

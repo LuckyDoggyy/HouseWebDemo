@@ -8,7 +8,6 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: net.jcip:jcip-annotations:1.0" />
-          <element id="library" level="project" name="Maven: com.anjuke.xinfang.security:shiro-freemarker-tags:0.1" />
           <element id="library" level="project" name="Maven: javax.mail:mail:1.4.7" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: io.searchbox:jest:2.0.0" />

@@ -7,6 +7,7 @@ import com.house.dao.HouseDescDao;
 import com.house.dao.HouseInfoDao;
 import com.house.model.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -35,15 +36,15 @@ public class HouseInfoService {
 
 
     //分页显示所有房产信息
-    public Page<HouseInfo> findAll(Pageable pageable){
+    public Page<HouseInfo> findAll(int page, int size){
 
+        Pageable pageable = new PageRequest(page, size);
         return houseInfoDao.findAll(pageable);
 
     }
 
-
-    public List<HouseInformation> findAll(){
-        return fromHouseInfosToHouseInformations(houseInfoDao.findAll());
+    public List<HouseInformation> getHouseInformations(Page<HouseInfo> page){
+        return fromHouseInfosToHouseInformations(page);
     }
 
     //根据面积区间挑选，面积区间(1左开区间， 2闭区间，3右开区间)
@@ -148,10 +149,45 @@ public class HouseInfoService {
     }*/
 
 
-    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfos){
+    public List<HouseInformation> fromHouseInfosToHouseInformations(Page<HouseInfo> houseInfoPages){
         List<Integer> descIds = new LinkedList<>();
         List<Integer> brokerIds = new LinkedList<>();
         List<Integer> houseIds = new LinkedList<>();
+        List<HouseInfo> houseInfos = houseInfoPages.getContent();
+        for(HouseInfo houseInfo : houseInfos){
+            descIds.add(houseInfo.getDescId());
+            brokerIds.add(houseInfo.getBrokerId());
+            houseIds.add(houseInfo.getHouseId());
+        }
+        Map<Integer, House> houseMap = new HashMap<>();
+        Map<Integer, HouseDesc> descMap = new HashMap<>();
+        Map<Integer, Broker> brokerMap = new HashMap<>();
+        List<House> houses = houseDao.findAllByIdIn(houseIds);
+        List<HouseDesc> houseDescs = houseDescDao.findAllByIdIn(descIds);
+        List<Broker> brokers = brokerDao.findAllByIdIn(brokerIds);
+        for(House house : houses)
+            houseMap.put(house.getId(), house);
+        for(HouseDesc houseDesc : houseDescs)
+            descMap.put(houseDesc.getId(), houseDesc);
+        for(Broker broker : brokers)
+            brokerMap.put(broker.getId(), broker);
+
+        List<HouseInformation> result = new LinkedList<>();
+        for(HouseInfo houseInfo : houseInfos){
+            House house = houseMap.get(houseInfo.getHouseId());
+            HouseDesc houseDesc = descMap.get(houseInfo.getDescId());
+            Broker broker = brokerMap.get(houseInfo.getBrokerId());
+            HouseInformation houseInformation = getHouseInformation(houseInfo, broker, houseDesc, house);
+            result.add(houseInformation);
+        }
+        return result;
+    }
+
+    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfoPages){
+        List<Integer> descIds = new LinkedList<>();
+        List<Integer> brokerIds = new LinkedList<>();
+        List<Integer> houseIds = new LinkedList<>();
+        List<HouseInfo> houseInfos = houseInfoPages;
         for(HouseInfo houseInfo : houseInfos){
             descIds.add(houseInfo.getDescId());
             brokerIds.add(houseInfo.getBrokerId());

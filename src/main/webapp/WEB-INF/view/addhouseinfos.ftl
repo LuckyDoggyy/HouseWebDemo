@@ -88,7 +88,7 @@
     });
     $('#addHouseSubBtn').click(function(){
         console.log('add new house committed.');
-        var param = {
+        var houseParam = {
             livroom : $('#livroom').val(),
             bedroom : $('#bedroom').val(),
             community : $('#community').val(),
@@ -98,7 +98,7 @@
         $.ajax({
             type:'post',
             url:'/addHouse',
-            data:'param',
+            data: houseParam,
             success:function(result){
                 console.log(result);
                 window.alert(result.status);

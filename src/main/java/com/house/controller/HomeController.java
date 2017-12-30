@@ -1,14 +1,14 @@
 package com.house.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.house.model.Broker;
-import com.house.model.House;
-import com.house.model.HouseDesc;
-import com.house.model.HouseInformation;
+import com.house.model.*;
 import com.house.service.BrokerService;
 import com.house.service.HouseDescService;
 import com.house.service.HouseInfoService;
 import com.house.service.HouseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,13 +39,24 @@ public class HomeController {
     private HouseService houseService;
 
     @RequestMapping(value = {"/", "/houseInfos"}, method = RequestMethod.GET)
-    public String showAllHouseInfosWithSession(HttpSession session, Model model) {
-        List<HouseInformation> houseInfos = houseInfoService.findAll();
+    public String showAllHouseInfosWithSession(
+            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
+            HttpSession session, Model model) {
+        Page<HouseInfo> houseInfos = houseInfoService.findAll(pageNumber - 1, pageSize);
+        long count = houseInfos.getTotalElements();
+        long pageSum = houseInfos.getTotalPages();
+        List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
         Broker broker = (Broker) session.getAttribute("broker");
         if (broker != null) {
             model.addAttribute("broker", broker);
         }
-        model.addAttribute("houseInfos", houseInfos);
+        model.addAttribute("houseInfos", houseInformations);
+        model.addAttribute("count",count);
+        model.addAttribute("pageSum",pageSum);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber",pageNumber);
+
         return "view/houseInfos";
     }
 
@@ -68,7 +79,14 @@ public class HomeController {
             houseInformations = houseInfoService.findByPrice(zone);
         if (param.equals("Bedroom"))
             houseInformations = houseInfoService.findByBedroom(zone);
+
         model.addAttribute("houseInfos", houseInformations);
+/*
+        model.addAttribute("count",count);
+        model.addAttribute("pageSum",pageSum);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber",pageNumber);
+*/
         return "/infotable";
     }
 
@@ -97,32 +115,6 @@ public class HomeController {
         }
 
         return result;
-    }
-
-
-    @RequestMapping("/selectDesc")
-    @ResponseBody
-    public String selectDesc(@RequestParam(value = "descId") int descId
-    ) throws Exception {
-        HouseDesc houseDesc = houseDescService.findAllByDescId(descId);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(houseDesc);
-    }
-
-    @RequestMapping("/selectBroker")
-    @ResponseBody
-    public String selectBroker(@RequestParam(value = "brokerId") int brokerId
-    ) throws Exception {
-        Broker broker = brokerService.findById(brokerId);
-        return (new ObjectMapper()).writeValueAsString(broker);
-    }
-
-    @RequestMapping("/selectHouse")
-    @ResponseBody
-    public String selectHouse(@RequestParam(value = "houseId") int houseId
-    ) throws Exception {
-        House house = houseService.findById(houseId);
-        return (new ObjectMapper()).writeValueAsString(house);
     }
 
 }

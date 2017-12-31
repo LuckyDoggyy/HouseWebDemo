@@ -10,14 +10,13 @@ import com.house.service.BrokerService;
 import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -85,6 +84,18 @@ public class Test {
         System.out.println(broker.toString());
     }
 
+    @org.junit.Test
+    public void findByPage(){
+
+        Map<String, String> map = new HashMap<>();
+        map.put("param","bedroom");
+        map.put("zone","1");
+        Page<HouseInfo> houseInfoPage = houseInfoService.findBy(map,0,5);
+        List<HouseInfo> houseInfos = houseInfoPage.getContent();
+        for(HouseInfo houseInfo : houseInfos)
+            System.out.println(houseInfo.toString());
+
+    }
 
 
 }

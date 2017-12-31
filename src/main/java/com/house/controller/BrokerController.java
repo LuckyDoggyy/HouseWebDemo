@@ -45,13 +45,13 @@ public class BrokerController {
             @RequestParam(name = "floor") int floor,
             @RequestParam(name = "totalFloor") int totalFloor,
             @RequestParam(name = "description") String description,
-            @RequestParam(name = "house") int house,
+            @RequestParam(name = "house") int houseId,
             HttpSession session
             ){
         Map<String, String> result = new HashMap<>();
         int brokerId = ((Broker)session.getAttribute("broker")).getId();
         HouseInfo houseInfo = brokerService.addNewHouseInfo(title, area,
-                price,floor, totalFloor, description, house, brokerId);
+                floor, totalFloor, price, description, houseId, brokerId);
         if(houseInfo != null) {
             result.put("status", "Add house information successfully.");
         }else{

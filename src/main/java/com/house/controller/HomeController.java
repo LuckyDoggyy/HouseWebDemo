@@ -1,25 +1,34 @@
 package com.house.controller;
 
+<<<<<<< Updated upstream
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.house.model.Broker;
 import com.house.model.House;
 import com.house.model.HouseDesc;
+=======
+import com.house.model.Broker;
+import com.house.model.HouseInfo;
+>>>>>>> Stashed changes
 import com.house.model.HouseInformation;
 import com.house.service.BrokerService;
 import com.house.service.HouseDescService;
 import com.house.service.HouseInfoService;
 import com.house.service.HouseService;
+<<<<<<< Updated upstream
+=======
+import org.springframework.data.domain.Page;
+>>>>>>> Stashed changes
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +54,16 @@ public class HomeController {
         if (broker != null) {
             model.addAttribute("broker", broker);
         }
+<<<<<<< Updated upstream
         model.addAttribute("houseInfos", houseInfos);
+=======
+        model.addAttribute("houseInfos", houseInformations);
+        model.addAttribute("count", count);
+        model.addAttribute("pageSum", pageSum);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber", pageNumber);
+
+>>>>>>> Stashed changes
         return "view/houseInfos";
     }
 
@@ -57,10 +75,13 @@ public class HomeController {
 
     @RequestMapping("/selectBy")
     public String selectBy(
-            @RequestParam(value = "param") String param,
-            @RequestParam(value = "zone") int zone,
+            @RequestParam(name = "param") String param,
+            @RequestParam(name = "zone") String zone,
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             Model model
     ) {
+<<<<<<< Updated upstream
         List<HouseInformation> houseInformations = new LinkedList();
         if (param.equals("Area"))
             houseInformations = houseInfoService.findByArea(zone);
@@ -69,6 +90,24 @@ public class HomeController {
         if (param.equals("Bedroom"))
             houseInformations = houseInfoService.findByBedroom(zone);
         model.addAttribute("houseInfos", houseInformations);
+=======
+        Map<String, String> map = new HashMap<>();
+        map.put("param", param.toLowerCase());
+        map.put("zone", zone);
+        Page<HouseInfo> houseInfos = houseInfoService.findBy(map, pageNumber, pageSize);
+        List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
+        model.addAttribute("houseInfos", houseInformations);
+        model.addAttribute("count", houseInfos.getTotalElements());
+        model.addAttribute("pageSum", houseInfos.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber", pageNumber);
+        /*
+        model.addAttribute("count", houseInfos.getTotalElements());
+        model.addAttribute("pageSum", houseInfos.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber", pageNumber);
+        */
+>>>>>>> Stashed changes
         return "/infotable";
     }
 

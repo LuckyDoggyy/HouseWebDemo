@@ -1,10 +1,12 @@
 package com.house.dao;
 
 
+import com.house.model.House;
 import com.house.model.HouseInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,6 +29,9 @@ public interface HouseInfoDao extends
     //分页显示
     @Override
     Page<HouseInfo> findAll(Pageable pageable);
+
+    @Override
+    Page<HouseInfo> findAll(Specification<HouseInfo> specification, Pageable pageable);
 
     @Override
     List<HouseInfo> findAll();

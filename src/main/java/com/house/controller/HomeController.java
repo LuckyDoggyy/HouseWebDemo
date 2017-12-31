@@ -1,25 +1,24 @@
 package com.house.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.house.model.*;
+import com.house.model.Broker;
+import com.house.model.HouseInfo;
+import com.house.model.HouseInformation;
 import com.house.service.BrokerService;
 import com.house.service.HouseDescService;
 import com.house.service.HouseInfoService;
 import com.house.service.HouseService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +51,10 @@ public class HomeController {
             model.addAttribute("broker", broker);
         }
         model.addAttribute("houseInfos", houseInformations);
-        model.addAttribute("count",count);
-        model.addAttribute("pageSum",pageSum);
+        model.addAttribute("count", count);
+        model.addAttribute("pageSum", pageSum);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("pageNumber",pageNumber);
+        model.addAttribute("pageNumber", pageNumber);
 
         return "view/houseInfos";
     }
@@ -68,25 +67,28 @@ public class HomeController {
 
     @RequestMapping("/selectBy")
     public String selectBy(
-            @RequestParam(value = "param") String param,
-            @RequestParam(value = "zone") int zone,
+            @RequestParam(name = "param") String param,
+            @RequestParam(name = "zone") String zone,
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             Model model
     ) {
-        List<HouseInformation> houseInformations = new LinkedList();
-        if (param.equals("Area"))
-            houseInformations = houseInfoService.findByArea(zone);
-        if (param.equals("Price"))
-            houseInformations = houseInfoService.findByPrice(zone);
-        if (param.equals("Bedroom"))
-            houseInformations = houseInfoService.findByBedroom(zone);
-
+        Map<String, String> map = new HashMap<>();
+        map.put("param", param.toLowerCase());
+        map.put("zone", zone);
+        Page<HouseInfo> houseInfos = houseInfoService.findBy(map, pageNumber, pageSize);
+        List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
         model.addAttribute("houseInfos", houseInformations);
-/*
-        model.addAttribute("count",count);
-        model.addAttribute("pageSum",pageSum);
+        model.addAttribute("count", houseInfos.getTotalElements());
+        model.addAttribute("pageSum", houseInfos.getTotalPages());
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("pageNumber",pageNumber);
-*/
+        model.addAttribute("pageNumber", pageNumber);
+        /*
+        model.addAttribute("count", houseInfos.getTotalElements());
+        model.addAttribute("pageSum", houseInfos.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber", pageNumber);
+        */
         return "/infotable";
     }
 

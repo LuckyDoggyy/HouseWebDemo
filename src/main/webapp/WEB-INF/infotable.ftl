@@ -41,7 +41,7 @@
     </tbody>
 </table>
 <#if pageSum gt 1>
-    <#assign baseUrl="?pageSize=${pageSize}&pageNumber=">
+    <#assign baseUrl="/selectBy?pageSize=${pageSize}&pageNumber=">
 <div align="center">
     <ul class="pagination">
         <#if pageNumber == 1 >
@@ -77,6 +77,5 @@
             <li><a href="${baseUrl}${pageSum}">&raquo;</a></li>
         </#if>
     </ul>
-</div>
 </div>
 </#if>

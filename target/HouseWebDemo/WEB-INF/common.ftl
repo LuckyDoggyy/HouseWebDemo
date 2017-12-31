@@ -63,43 +63,24 @@
     <@selection param="Bedroom" count=5 conditions=[1,2,3,4,">5"] />
 </ul>
 <div id="infoTable">
-    <@infoTable />
+
 </div>
 </body>
+<script>
+    $.ajax({
+        url:'/selectBy',
+        type:'get',
+        success:function (result) {
+            $('#infoTable').append(result);
+        }
+    });
+</script>
 </html>
 </#escape>
 </#macro>
-<#macro selection param count conditions >
-    <li>
-        <label>${param}:</label>
-            <#list 1..count as key>
-                <button type="submit" id="${param}${key}" value=${key} onclick="selectBy${param}(this.value)">${conditions[key - 1]}</button>
-            </#list>
-    </li>
-        <script>
-            var selectBy${param} = function(obj) {
-                console.log(obj);
-                console.log("${param}");
-                $.ajax({
-                    url:"/selectBy",
-                    type: "get",
-                    async: true,
-                    data:{
-                        param: "${param}",
-                        zone: obj
-                        },
-                    timeout: 5000,
-                    success: function(result){
-                        $('#infoTable').empty();
-                        $('#infoTable').append(result);
-                    },
-                    error: function(result){
-                    }
-                });
-            }
-        </script>
-</#macro>
 
+
+<#--
 <#macro infoTable >
 <table border="1">
     <thead>
@@ -183,4 +164,36 @@
     </div>
     </div>
     </#if>
+</#macro>
+-->
+
+<#macro selection param count conditions >
+<li>
+    <label>${param}:</label>
+    <#list 1..count as key>
+        <button type="submit" id="${param}${key}" value=${key} onclick="selectBy${param}(this.value)">${conditions[key - 1]}</button>
+    </#list>
+</li>
+<script>
+    var selectBy${param} = function(obj) {
+        console.log(obj);
+        console.log("${param}");
+        $.ajax({
+            url:"/selectBy",
+            type: "get",
+            async: true,
+            data:{
+                param: "${param}",
+                zone: obj
+            },
+            timeout: 5000,
+            success: function(result){
+                $('#infoTable').empty();
+                $('#infoTable').append(result);
+            },
+            error: function(result){
+            }
+        });
+    }
+</script>
 </#macro>

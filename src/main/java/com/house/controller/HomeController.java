@@ -67,15 +67,17 @@ public class HomeController {
 
     @RequestMapping("/selectBy")
     public String selectBy(
-            @RequestParam(name = "param") String param,
-            @RequestParam(name = "zone") String zone,
+            @RequestParam(name = "param", required = false) String param,
+            @RequestParam(name = "zone", required = false) String zone,
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             Model model
     ) {
         Map<String, String> map = new HashMap<>();
-        map.put("param", param.toLowerCase());
-        map.put("zone", zone);
+        if(!(param == null || zone == null)){
+            map.put("param", param.toLowerCase());
+            map.put("zone", zone);
+        }
         Page<HouseInfo> houseInfos = houseInfoService.findBy(map, pageNumber, pageSize);
         List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
         model.addAttribute("houseInfos", houseInformations);

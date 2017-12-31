@@ -202,6 +202,9 @@ public class HouseInfoService {
     }
 
     public Page<HouseInfo> findBy(Map<String,String> map, int pageNumber, int pageSize){
+        if(map.size() == 0){
+            return houseInfoDao.findAll(new PageRequest(pageNumber,pageSize));
+        }
         Pageable pageable = new PageRequest(pageNumber,pageSize);
         Specification<HouseInfo> spec = this.buildPageCondition(map);
         return houseInfoDao.findAll(spec, pageable);
@@ -218,11 +221,11 @@ public class HouseInfoService {
                         orderParam = "price";
                         Path<Integer> expression = root.get("price");
                         if(map.get("zone").equals("1")){
-                            list.add(cb.between(expression, 100, 149));
+                            list.add(cb.between(expression, 0, 99));
                         }else if(map.get("zone").equals("2")){
-                            list.add(cb.between(expression, 150,199));
+                            list.add(cb.between(expression, 100,149));
                         }else {
-                            list.add(cb.between(expression, 200, Integer.MAX_VALUE));
+                            list.add(cb.between(expression, 150, Integer.MAX_VALUE));
                         }
                     }else if(map.get("param").equals("area")){
                         orderParam = "area";

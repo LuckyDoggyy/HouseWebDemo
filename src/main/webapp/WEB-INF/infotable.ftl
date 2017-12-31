@@ -48,8 +48,8 @@
             <li class="disabled"><a href="#">&laquo;</a></li>
             <li class="disabled"><a href="#">Previous</a></li>
         <#else>
-            <li><a href="${baseUrl}1">&laquo;</a></li>
-            <li><a href="${baseUrl}${pageNumber-1}">Previous</a></li>
+            <li><a href="${baseUrl}1" onclick="return getPage(1)">&laquo;</a></li>
+            <li><a href="${baseUrl}${pageNumber-1}" onclick="return getPage(${pageNumber - 1})">Previous</a></li>
         </#if>
         <#assign startPage=pageNumber-3/>
         <#if startPage<1 >
@@ -73,9 +73,22 @@
             <li class="disabled"><a href="#">Next</a></li>
             <li class="disabled"><a href="#">&raquo;</a></li>
         <#else>
-            <li><a href="${baseUrl}${pageNumber+1}">Next</a></li>
+            <li><a href="${baseUrl}${pageNumber+1}" click="">Next</a></li>
             <li><a href="${baseUrl}${pageSum}">&raquo;</a></li>
         </#if>
     </ul>
 </div>
+<script>
+    var getPage = function(pageNum){
+        var url = '${baseUrl}'+pageNum;
+        $.ajax({
+            url:url,
+            type:'get',
+            success:function(result){
+
+            }
+        });
+    }
+
+</script>
 </#if>

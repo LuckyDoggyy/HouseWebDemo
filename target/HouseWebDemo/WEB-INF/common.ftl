@@ -1,6 +1,4 @@
 <#import "/spring.ftl" as spring />
-
-
 <#macro page title>
 <#escape x as x?html>
 <!DOCTYPE html>
@@ -64,14 +62,13 @@
     <@selection param="Price" count=3 conditions=["under 100W", "100-150W", "above 150W"] />
     <@selection param="Bedroom" count=5 conditions=[1,2,3,4,">5"] />
 </ul>
+<div id="infoTable">
     <@infoTable />
+</div>
 </body>
 </html>
 </#escape>
 </#macro>
-
-
-
 <#macro selection param count conditions >
     <li>
         <label>${param}:</label>
@@ -93,8 +90,8 @@
                         },
                     timeout: 5000,
                     success: function(result){
-                        $('table').remove();
-                        $('ul').after(result);
+                        $('#infoTable').empty();
+                        $('#infoTable').append(result);
                     },
                     error: function(result){
                     }
@@ -146,4 +143,44 @@
         </#list>
     </tbody>
 </table>
+    <#if pageSum gt 1>
+        <#assign baseUrl="?pageSize=${pageSize}&pageNumber=">
+    <div align="center">
+        <ul class="pagination">
+            <#if pageNumber == 1 >
+                <li class="disabled"><a href="#">&laquo;</a></li>
+                <li class="disabled"><a href="#">Previous</a></li>
+            <#else>
+                <li><a href="${baseUrl}1">&laquo;</a></li>
+                <li><a href="${baseUrl}${pageNumber-1}">Previous</a></li>
+            </#if>
+            <#assign startPage=pageNumber-3/>
+            <#if startPage<1 >
+                <#assign startPage=1/>
+            </#if>
+            <#assign endPage=pageNumber+5/>
+            <#if (endPage>pageSum-1) >
+                <#assign endPage=pageSum/>
+                <#if endPage==0>
+                    <#assign endPage=0/>
+                </#if>
+            </#if>
+            <#list startPage..endPage as p>
+                <#if p == pageNumber>
+                    <li class="active"><a href="#">${p}</a></li>
+                <#else>
+                    <li><a href="${baseUrl}${p}">${p}</a></li>
+                </#if>
+            </#list>
+            <#if pageSum == pageNumber>
+                <li class="disabled"><a href="#">Next</a></li>
+                <li class="disabled"><a href="#">&raquo;</a></li>
+            <#else>
+                <li><a href="${baseUrl}${pageNumber+1}">Next</a></li>
+                <li><a href="${baseUrl}${pageSum}">&raquo;</a></li>
+            </#if>
+        </ul>
+    </div>
+    </div>
+    </#if>
 </#macro>

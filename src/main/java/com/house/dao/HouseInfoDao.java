@@ -8,15 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.*;
 
 
@@ -35,8 +31,6 @@ public interface HouseInfoDao extends
 
     @Override
     List<HouseInfo> findAll();
-
-
 
     //面积区间
     //@Query("from houseinfo as hi where hi.area between 1? and 2?")

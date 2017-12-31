@@ -39,12 +39,18 @@
         </tr>
         </#list>
     </tbody>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 </table>
 =======
 </table>
 <#if pageSum gt 1>
     <#assign baseUrl="/selectBy?pageSize=${pageSize}&pageNumber=">
+=======
+</table>
+<#if pageSum gt 1>
+    <#assign baseUrl="?pageSize=${pageSize}&pageNumber=">
+>>>>>>> dev
 <div align="center">
     <ul class="pagination">
         <#if pageNumber == 1 >
@@ -82,5 +88,9 @@
     </ul>
 </div>
 </div>
+<<<<<<< HEAD
 </#if>
 >>>>>>> Stashed changes
+=======
+</#if>
+>>>>>>> dev

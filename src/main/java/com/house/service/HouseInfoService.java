@@ -6,15 +6,10 @@ import com.house.dao.HouseDao;
 import com.house.dao.HouseDescDao;
 import com.house.dao.HouseInfoDao;
 import com.house.model.*;
-<<<<<<< Updated upstream
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-=======
-import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
->>>>>>> Stashed changes
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,15 +36,15 @@ public class HouseInfoService {
 
 
     //分页显示所有房产信息
-    public Page<HouseInfo> findAll(Pageable pageable){
+    public Page<HouseInfo> findAll(int page, int size){
 
+        Pageable pageable = new PageRequest(page, size);
         return houseInfoDao.findAll(pageable);
 
     }
 
-
-    public List<HouseInformation> findAll(){
-        return fromHouseInfosToHouseInformations(houseInfoDao.findAll());
+    public List<HouseInformation> getHouseInformations(Page<HouseInfo> page){
+        return fromHouseInfosToHouseInformations(page);
     }
 
     //根据面积区间挑选，面积区间(1左开区间， 2闭区间，3右开区间)
@@ -129,19 +124,8 @@ public class HouseInfoService {
 
     }
 
-<<<<<<< Updated upstream
-    /*    public String fromListToJson(Iterable<HouseInfo> list) throws Exception{
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String str = "{\"houseInfos\":[";
-        for(HouseInfo houseInfo : list)
-            str += objectMapper.writeValueAsString(houseInfo) + ",";
-        str = str.substring(0, str.length()-1) + "]}";
 
-        return str;
-    }*/
-
-=======
     public List<HouseInformation> fromHouseInfosToHouseInformations(Page<HouseInfo> houseInfoPages){
         List<Integer> descIds = new LinkedList<>();
         List<Integer> brokerIds = new LinkedList<>();
@@ -175,12 +159,12 @@ public class HouseInfoService {
         }
         return result;
     }
->>>>>>> Stashed changes
 
-    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfos){
+    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfoPages){
         List<Integer> descIds = new LinkedList<>();
         List<Integer> brokerIds = new LinkedList<>();
         List<Integer> houseIds = new LinkedList<>();
+        List<HouseInfo> houseInfos = houseInfoPages;
         for(HouseInfo houseInfo : houseInfos){
             descIds.add(houseInfo.getDescId());
             brokerIds.add(houseInfo.getBrokerId());

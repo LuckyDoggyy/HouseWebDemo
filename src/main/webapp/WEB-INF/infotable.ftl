@@ -44,12 +44,12 @@
     <#assign baseUrl="/selectBy?pageSize=${pageSize}&pageNumber=">
 <div align="center">
     <ul class="pagination">
-        <#if pageNumber == 1 >
+        <#if pageNumber == 0 >
             <li class="disabled"><a href="#">&laquo;</a></li>
             <li class="disabled"><a href="#">Previous</a></li>
         <#else>
-            <li><a href="${baseUrl}1" onclick="return getPage(1)">&laquo;</a></li>
-            <li><a href="${baseUrl}${pageNumber-1}" onclick="return getPage(${pageNumber - 1})">Previous</a></li>
+            <li><a href="${baseUrl}0" onclick="getPage(this)">&laquo;</a></li>
+            <li><a href="${baseUrl}${pageNumber - 1}" onclick="getPage(this)">Previous</a></li>
         </#if>
         <#assign startPage=pageNumber-3/>
         <#if startPage<1 >
@@ -66,29 +66,16 @@
             <#if p == pageNumber>
                 <li class="active"><a href="#">${p}</a></li>
             <#else>
-                <li><a href="${baseUrl}${p}">${p}</a></li>
+                <li><a href="${baseUrl}${p - 1}" onclick="getPage(this)">${p}</a></li>
             </#if>
         </#list>
         <#if pageSum == pageNumber>
             <li class="disabled"><a href="#">Next</a></li>
             <li class="disabled"><a href="#">&raquo;</a></li>
         <#else>
-            <li><a href="${baseUrl}${pageNumber+1}" click="">Next</a></li>
-            <li><a href="${baseUrl}${pageSum}">&raquo;</a></li>
+            <li><a href="${baseUrl}${pageNumber+1}" onclick="getPage(this)">Next</a></li>
+            <li value="${baseUrl}${pageSum - 1}"><a href="#" onclick="getPage(this)">&raquo;</a></li>
         </#if>
     </ul>
 </div>
-<script>
-    var getPage = function(pageNum){
-        var url = '${baseUrl}'+pageNum;
-        $.ajax({
-            url:url,
-            type:'get',
-            success:function(result){
-
-            }
-        });
-    }
-
-</script>
 </#if>

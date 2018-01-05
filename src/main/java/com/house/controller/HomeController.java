@@ -1,20 +1,14 @@
 package com.house.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.house.model.Broker;
-import com.house.model.House;
-import com.house.model.HouseDesc;
+
 import com.house.model.Broker;
 import com.house.model.HouseInfo;
 import com.house.model.HouseInformation;
-import com.house.model.*;
 import com.house.service.BrokerService;
 import com.house.service.HouseDescService;
 import com.house.service.HouseInfoService;
 import com.house.service.HouseService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +56,7 @@ public class HomeController {
         model.addAttribute("pageSum", pageSum);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNumber", pageNumber);
+
         return "view/houseInfos";
     }
 
@@ -73,18 +68,29 @@ public class HomeController {
 
     @RequestMapping("/selectBy")
     public String selectBy(
-            @RequestParam(name = "param") String param,
-            @RequestParam(name = "zone") String zone,
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+
+            @RequestParam(name = "param", required = false) String param,
+            @RequestParam(name = "zone", required = false) String zone,
+            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             Model model
     ) {
-
         Map<String, String> map = new HashMap<>();
-        map.put("param", param.toLowerCase());
-        map.put("zone", zone);
-        Page<HouseInfo> houseInfos = houseInfoService.findBy(map, pageNumber, pageSize);
+        if(!(param == null || zone == null)){
+            map.put("param", param.toLowerCase());
+            map.put("zone", zone);
+        }
+        for(String key : map.keySet())
+            System.out.println(key+":"+map.get(key));
+        Page<HouseInfo> houseInfos = houseInfoService.findBy(map,pageNumber - 1,pageSize);
+        List<HouseInfo> list = houseInfos.getContent();
+        for(HouseInfo houseInfo : houseInfos)
+            System.out.println(houseInfo.toString());
+
         List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
+        for(HouseInformation houseInformation : houseInformations)
+            System.out.println(houseInformation.toString());
+
         model.addAttribute("houseInfos", houseInformations);
         model.addAttribute("count", houseInfos.getTotalElements());
         model.addAttribute("pageSum", houseInfos.getTotalPages());

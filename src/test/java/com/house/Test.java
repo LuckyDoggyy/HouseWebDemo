@@ -68,17 +68,6 @@ public class Test {
     }
 
     @org.junit.Test
-    public void findByAreaBetween() throws Exception{
-        List<HouseInformation> result = houseInfoService.findByArea(2);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String str = "{\"houseInfos\":[";
-        for(HouseInformation houseInformation : result)
-            str += objectMapper.writeValueAsString(houseInformation) + ",";
-        str = str.substring(0, str.length()-1) + "]}";
-        System.out.println(str);
-    }
-
-    @org.junit.Test
     public void findByUsername(){
         Broker broker = brokerService.findByUsername("xxy");
         System.out.println(broker.toString());
@@ -94,6 +83,32 @@ public class Test {
         List<HouseInfo> houseInfos = houseInfoPage.getContent();
         for(HouseInfo houseInfo : houseInfos)
             System.out.println(houseInfo.toString());
+
+    }
+
+    /*@org.junit.Test
+    public void findByAreaBetween() throws Exception{
+        List<HouseInformation> result = houseInfoService.findByArea(2);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String str = "{\"houseInfos\":[";
+        for(HouseInformation houseInformation : result)
+            str += objectMapper.writeValueAsString(houseInformation) + ",";
+        str = str.substring(0, str.length()-1) + "]}";
+        System.out.println(str);
+    }*/
+
+    @org.junit.Test
+    public void findByPrice(){
+        Map<String, String> map = new HashMap<>();
+        map.put("param", "price");
+        map.put("zone","1");
+        for(int pageNumber = 0 ; pageNumber < 3 ; pageNumber ++){
+        Page<HouseInfo> houseInfos = houseInfoService.findBy(map,pageNumber,5);
+        List<HouseInfo> list = houseInfos.getContent();
+        for(HouseInfo houseInfo : houseInfos)
+            System.out.println(houseInfo.toString());
+        System.out.println("----------------------");
+        }
 
     }
 

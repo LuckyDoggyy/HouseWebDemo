@@ -49,16 +49,20 @@
 =======
 </table>
 <#if pageSum gt 1>
+<<<<<<< HEAD
     <#assign baseUrl="?pageSize=${pageSize}&pageNumber=">
+>>>>>>> dev
+=======
+    <#assign baseUrl="/selectBy?pageSize=${pageSize}&pageNumber=">
 >>>>>>> dev
 <div align="center">
     <ul class="pagination">
         <#if pageNumber == 1 >
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="disabled"><a href="#">Previous</a></li>
+            <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>
+            <li class="disabled"><a href="javascript:void(0);">Previous</a></li>
         <#else>
-            <li><a href="${baseUrl}1">&laquo;</a></li>
-            <li><a href="${baseUrl}${pageNumber-1}">Previous</a></li>
+            <li value="${baseUrl}1"><a href="javascript:void(0);" onclick="getPage(this)">&laquo;</a></li>
+            <li value="${baseUrl}${pageNumber - 1}"><a href="javascript:void(0);" onclick="getPage(this)">Previous</a></li>
         </#if>
         <#assign startPage=pageNumber-3/>
         <#if startPage<1 >
@@ -73,24 +77,28 @@
         </#if>
         <#list startPage..endPage as p>
             <#if p == pageNumber>
-                <li class="active"><a href="#">${p}</a></li>
+                <li class="active"><a href="javascript:void(0);">${p}</a></li>
             <#else>
-                <li><a href="${baseUrl}${p}">${p}</a></li>
+                <li value="${baseUrl}${p}"><a href="javascript:void(0);" onclick="getPage(this)">${p}</a></li>
             </#if>
         </#list>
         <#if pageSum == pageNumber>
-            <li class="disabled"><a href="#">Next</a></li>
-            <li class="disabled"><a href="#">&raquo;</a></li>
+            <li class="disabled"><a href="javascript:void(0)">Next</a></li>
+            <li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>
         <#else>
-            <li><a href="${baseUrl}${pageNumber+1}">Next</a></li>
-            <li><a href="${baseUrl}${pageSum}">&raquo;</a></li>
+            <li value="${baseUrl}${pageNumber + 1}"><a href="javascript:void(0);" onclick="getPage(this)">Next</a></li>
+            <li value="${baseUrl}${pageSum}"><a href="javascript:void(0);" onclick="getPage(this)">&raquo;</a></li>
         </#if>
     </ul>
 </div>
+<<<<<<< HEAD
 </div>
 <<<<<<< HEAD
 </#if>
 >>>>>>> Stashed changes
+=======
+</#if>
+>>>>>>> dev
 =======
 </#if>
 >>>>>>> dev

@@ -33,14 +33,14 @@
     <form id="houseForm">
         <label for="livroom" style="width:110px;float:left;">Living Room:</label>
         <label><input type="radio" id="livroom" value="1">1</label>
-        <label><input type="radio" id="livroom" value="2">2</label>
-        <label><input type="radio" id="livroom" value="3">3</label></br>
+        <label><input type="radio" name="livroom" id="livroom" value="2">2</label>
+        <label><input type="radio" name="livroom" id="livroom" value="3">3</label></br>
         <label for="bedroom" style="width:110px;float:left;">Bedroom:</label>
-        <label><input type="radio" id="bedroom" value="1">1</label>
-        <label><input type="radio" id="bedroom" value="2">2</label>
-        <label><input type="radio" id="bedroom" value="3">3</label>
-        <label><input type="radio" id="bedroom" value="4">4</label>
-        <label><input type="radio" id="bedroom" value="5">5</label></br>
+        <label><input type="radio" name="bedroom" id="bedroom" value="1">1</label>
+        <label><input type="radio" name="bedroom" id="bedroom" value="2">2</label>
+        <label><input type="radio" name="bedroom" id="bedroom" value="3">3</label>
+        <label><input type="radio" name="bedroom" id="bedroom" value="4">4</label>
+        <label><input type="radio" name="bedroom" id="bedroom" value="5">5</label></br>
         <lable for="community" style="width:110px;float:left;">Community:</lable>
         <input id="community" type="text" style="width:390px;float:left;"/></br>
         <lable for="address" style="width:110px;float:left;">Address:</lable>
@@ -109,6 +109,5 @@
             }
         });
     });
-
 </script>
 </html>

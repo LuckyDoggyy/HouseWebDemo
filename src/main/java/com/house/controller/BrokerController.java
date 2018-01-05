@@ -49,9 +49,16 @@ public class BrokerController {
             HttpSession session
             ){
         Map<String, String> result = new HashMap<>();
-        int brokerId = ((Broker)session.getAttribute("broker")).getId();
+        Broker broker = ((Broker)session.getAttribute("broker"));
+        if(broker == null){
+            result.put("status","Failed, please log in first.");
+            return result;
+        }
+
         HouseInfo houseInfo = brokerService.addNewHouseInfo(title, area,
-                floor, totalFloor, price, description, houseId, brokerId);
+
+                floor, totalFloor, price, description, houseId, broker.getId());
+
         if(houseInfo != null) {
             result.put("status", "Add house information successfully.");
         }else{
@@ -75,10 +82,15 @@ public class BrokerController {
             @RequestParam(name = "bedroom") int bedroom,
             @RequestParam(name = "community") String community,
             @RequestParam(name = "address") String address,
-            @RequestParam(name = "buildYear") String buildYear
+            @RequestParam(name = "buildYear") String buildYear,
+            HttpSession session
             ){
         Map<String, String> result = new HashMap<>();
         House house = brokerService.addNewHouse(bedroom,livroom,buildYear,community,address);
+        if(session.getAttribute("broker") == null){
+            result.put("status","Failed, please login first");
+            return result;
+        }
         System.out.println(house.toString());
         if(house != null){
             result.put("status","Add new house successfully.");

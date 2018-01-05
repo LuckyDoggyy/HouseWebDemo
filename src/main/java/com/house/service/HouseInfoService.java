@@ -42,6 +42,12 @@ public class HouseInfoService {
 
     }
 
+    public List<HouseInfo> findAll(){
+
+        return houseInfoDao.findAll();
+
+    }
+
     public List<HouseInformation> getHouseInformations(Page<HouseInfo> page){
         return fromHouseInfosToHouseInformations(page);
     }
@@ -100,39 +106,6 @@ public class HouseInfoService {
         return result;
     }
 
-    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfos){
-        List<Integer> descIds = new LinkedList<>();
-        List<Integer> brokerIds = new LinkedList<>();
-        List<Integer> houseIds = new LinkedList<>();
-        for(HouseInfo houseInfo : houseInfos){
-            descIds.add(houseInfo.getDescId());
-            brokerIds.add(houseInfo.getBrokerId());
-            houseIds.add(houseInfo.getHouseId());
-        }
-        Map<Integer, House> houseMap = new HashMap<>();
-        Map<Integer, HouseDesc> descMap = new HashMap<>();
-        Map<Integer, Broker> brokerMap = new HashMap<>();
-        List<House> houses = houseDao.findAllByIdIn(houseIds);
-        List<HouseDesc> houseDescs = houseDescDao.findAllByIdIn(descIds);
-        List<Broker> brokers = brokerDao.findAllByIdIn(brokerIds);
-        for(House house : houses)
-            houseMap.put(house.getId(), house);
-        for(HouseDesc houseDesc : houseDescs)
-            descMap.put(houseDesc.getId(), houseDesc);
-        for(Broker broker : brokers)
-            brokerMap.put(broker.getId(), broker);
-
-        List<HouseInformation> result = new LinkedList<>();
-        for(HouseInfo houseInfo : houseInfos){
-            House house = houseMap.get(houseInfo.getHouseId());
-            HouseDesc houseDesc = descMap.get(houseInfo.getDescId());
-            Broker broker = brokerMap.get(houseInfo.getBrokerId());
-            HouseInformation houseInformation = getHouseInformation(houseInfo, broker, houseDesc, house);
-            result.add(houseInformation);
-        }
-        return result;
-    }
-
     public HouseInformation getHouseInformation(HouseInfo houseInfo,
                                                 Broker broker, HouseDesc houseDesc, House house){
         HouseInformation result = new HouseInformation(houseInfo.getId(),
@@ -149,7 +122,11 @@ public class HouseInfoService {
         if(map.size() == 0){
             return houseInfoDao.findAll(new PageRequest(pageNumber,pageSize));
         }
-        Pageable pageable = new PageRequest(pageNumber,pageSize);
+        Sort.Order [] orders = new Sort.Order[2];
+        orders[0] = new Sort.Order(Sort.Direction.DESC,"pubTime");
+        orders[1] = new Sort.Order(Sort.Direction.ASC, "brokerId");
+        Pageable pageable = new PageRequest(pageNumber,pageSize, new Sort(orders));
+
         Specification<HouseInfo> spec = this.buildPageCondition(map);
         return houseInfoDao.findAll(spec, pageable);
     }
@@ -205,7 +182,7 @@ public class HouseInfoService {
                     }
 
 //                    Predicate [] predicates = list.toArray(new Predicate[list.size()]);
-                    query.where(predicate).orderBy(cb.desc(root.get("pubTime"))).orderBy(cb.asc(root.get("id")))/*.orderBy(cb.desc(root.get("pubTime")))*/;
+                    query.where(predicate)/*.orderBy(cb.desc(root.get("pubTime"))).orderBy(cb.asc(root.get("id")))*/;
 
                 return null;
             }

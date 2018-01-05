@@ -10,6 +10,8 @@ import com.house.service.BrokerService;
 import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,6 +32,8 @@ public class Test {
 
     @Resource
     private BrokerService brokerService;
+
+    private static final Logger log = LoggerFactory.getLogger(Test.class);
 
 
     @org.junit.Test
@@ -109,6 +113,16 @@ public class Test {
             System.out.println(houseInfo.toString());
         System.out.println("----------------------");
         }
+
+    }
+
+    @org.junit.Test
+    public void findAll(){
+        List<HouseInfo> list = houseInfoService.findAll();
+        for(HouseInfo houseInfo : list){
+            log.info("houseInfoId {}, houseInfoPubTime {}",houseInfo.getId(),houseInfo.getPubTime());
+        }
+
 
     }
 

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,18 @@ public interface HouseInfoDao extends
     @Override
     Page<HouseInfo> findAll(Specification<HouseInfo> specification, Pageable pageable);
 
+    @Query("from house_info order by pub_time desc")
+    List<HouseInfo> findAll();
+
+    //插入房产信息
+    @Override
+    HouseInfo save(HouseInfo houseInfo);
+
+    //根据价格、面积、发布时间排序
+    @Override
+    Page<HouseInfo> findAll(Sort sort);
+
+    /*
     @Override
     List<HouseInfo> findAll();
 
@@ -46,14 +59,7 @@ public interface HouseInfoDao extends
 
     //根据卧室数量获得houseId，再根据houseId获得房产信息
     List<HouseInfo> findAllByHouseIdIn(Iterable<Integer> iterable);
-
-    //插入房产信息
-    @Override
-    HouseInfo save(HouseInfo houseInfo);
-
-    //根据价格、面积、发布时间排序
-    @Override
-    Page<HouseInfo> findAll(Sort sort);
+    */
 
 }
 

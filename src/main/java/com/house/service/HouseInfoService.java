@@ -46,65 +46,6 @@ public class HouseInfoService {
         return fromHouseInfosToHouseInformations(page);
     }
 
-    //根据面积区间挑选，面积区间(1左开区间， 2闭区间，3右开区间)
-    public List<HouseInformation> findByArea(int interval){
-
-        List<HouseInfo> houseInfos = new LinkedList<>();
-
-        switch(interval){
-            case 1: {
-                houseInfos = houseInfoDao.findAllByAreaBetween(0, 50);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-            case 2:{
-                houseInfos = houseInfoDao.findAllByAreaBetween(50,99);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-            case 3:{
-                houseInfos = houseInfoDao.findAllByAreaGreaterThan(99);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-        }
-
-        return fromHouseInfosToHouseInformations(houseInfos);
-
-    }
-
-    //根据价格区间挑选,价格区间(1左开区间， 2闭区间，3右开区间)
-    public List<HouseInformation> findByPrice(int interval){
-
-        List<HouseInfo> houseInfos = new LinkedList<>();
-
-        switch(interval){
-            case 1:{
-                houseInfos = houseInfoDao.findAllByPriceBetween(0, 99);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-            case 2:{
-                houseInfos = houseInfoDao.findAllByPriceBetween(99, 149);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-            case 3:{
-                houseInfos = houseInfoDao.findAllByPriceGreaterThan(149);
-                for(HouseInfo houseInfo : houseInfos)
-                    System.out.println(houseInfo.toString());
-                break;
-            }
-        }
-
-        return fromHouseInfosToHouseInformations(houseInfos);
-    }
-
     public List<Integer> findByBedroom(int interval){
 
         List<House> houses = new LinkedList<>();
@@ -215,51 +156,49 @@ public class HouseInfoService {
             @Override
             public Predicate toPredicate(Root<HouseInfo> root,
                                          CriteriaQuery<?> query, CriteriaBuilder cb) {
+                    Predicate predicate = null;
                     List<Predicate> list = new ArrayList<>();
-                    String orderParam = null;
                     if(map.get("param").equals("price")){
-                        orderParam = "price";
                         Path<Integer> expression = root.get("price");
                         if(map.get("zone").equals("1")){
-                            list.add(cb.between(expression, 0, 99));
+                            predicate = /*list.add(*/cb.between(expression, 0, 99);
                         }else if(map.get("zone").equals("2")){
-                            list.add(cb.between(expression, 100,149));
+                            predicate = /*list.add(*/cb.between(expression, 100,149);
                         }else {
-                            list.add(cb.between(expression, 150, Integer.MAX_VALUE));
+                            predicate = /*list.add(*/cb.greaterThan(expression, 149);
                         }
                     }else if(map.get("param").equals("area")){
-                        orderParam = "area";
                         Path<Integer> expression = root.get("area");
                         if(map.get("zone").equals("1")){
-                            list.add(cb.between(expression, 0, 49));
+                            predicate = /* list.add(*/cb.between(expression, 0, 49);
                         }else if(map.get("zone").equals("2")){
-                            list.add(cb.between(expression, 50, 99));
+                            predicate = /* list.add(*/cb.between(expression, 50, 99);
                         }else {
-                            list.add(cb.between(expression, 100, Integer.MAX_VALUE));
+                            predicate = /*list.add(*/cb.greaterThan(expression, 99);
                         }
                     }else{
                         Path<Integer> expression = root.get("houseId");
                         switch (map.get("zone")){
                             case "1" : {
-                                list.add(expression.in(findByBedroom(1)));
+                                predicate = /* list.add(*/expression.in(findByBedroom(1));
                                 break;
                             }case "2" : {
-                                list.add(expression.in(findByBedroom(2)));
+                                predicate = /* list.add(*/expression.in(findByBedroom(2));
                                 break;
                             }case "3" : {
-                                list.add(expression.in(findByBedroom(3)));
+                                predicate = /* list.add(*/expression.in(findByBedroom(3));
                                 break;
                             }case "4" : {
-                                list.add(expression.in(findByBedroom(4)));
+                                predicate = /* list.add(*/expression.in(findByBedroom(4));
                                 break;
                             }case "5" : {
-                                list.add(expression.in(findByBedroom(5)));
+                                predicate = /* list.add(*/expression.in(findByBedroom(5));
                                 break;
                             }
                         }
                     }
-                    Predicate [] predicates = list.toArray(new Predicate[list.size()]);
-                    query.where(predicates).orderBy(cb.desc(root.get("pubTime")));
+//                    Predicate [] predicates = list.toArray(new Predicate[list.size()]);
+                    query.where(predicate).orderBy(cb.desc(root.get("pubTime"))).orderBy(cb.asc(root.get("id")))/*.orderBy(cb.desc(root.get("pubTime")))*/;
                 return null;
             }
         };
@@ -276,6 +215,65 @@ public class HouseInfoService {
         str = str.substring(0, str.length()-1) + "]}";
 
         return str;
+    }*/
+
+    /*//根据价格区间挑选,价格区间(1左开区间， 2闭区间，3右开区间)
+    public List<HouseInformation> findByPrice(int interval){
+
+        List<HouseInfo> houseInfos = new LinkedList<>();
+
+        switch(interval){
+            case 1:{
+                houseInfos = houseInfoDao.findAllByPriceBetween(0, 99);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 2:{
+                houseInfos = houseInfoDao.findAllByPriceBetween(99, 149);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 3:{
+                houseInfos = houseInfoDao.findAllByPriceGreaterThan(149);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+        }
+
+        return fromHouseInfosToHouseInformations(houseInfos);
+    }*/
+
+    /*//根据面积区间挑选，面积区间(1左开区间， 2闭区间，3右开区间)
+    public List<HouseInformation> findByArea(int interval){
+
+        List<HouseInfo> houseInfos = new LinkedList<>();
+
+        switch(interval){
+            case 1: {
+                houseInfos = houseInfoDao.findAllByAreaBetween(0, 50);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 2:{
+                houseInfos = houseInfoDao.findAllByAreaBetween(50,99);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+            case 3:{
+                houseInfos = houseInfoDao.findAllByAreaGreaterThan(99);
+                for(HouseInfo houseInfo : houseInfos)
+                    System.out.println(houseInfo.toString());
+                break;
+            }
+        }
+
+        return fromHouseInfosToHouseInformations(houseInfos);
+
     }*/
 
 }

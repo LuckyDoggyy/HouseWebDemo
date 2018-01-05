@@ -78,19 +78,19 @@
     </div>
     </body>
     <script>
-        var global;
+        var global={param:'',zone:''};
         $.ajax({
             url: '/selectBy',
             type: 'get',
             async : true,
-            timeout:5000;
+            timeout:5000,
             success: function (result) {
                 $('#infoTable').append(result);
                 return false;
             }
         });
         var getParam = function(obj){
-            var global ={
+            global ={
                 zone:$(obj).prev().val(),
                 param:$(obj).prev().prev().val()
             };
@@ -104,16 +104,18 @@
                     $('#infoTable').empty();
                     $('#infoTable').append(result);
                     return false;
-                },
-                error : function (result) {
-                    return false;
                 }
             });
             return false;
         };
         var getPage = function(obj){
-            var temp = $(obj);
-            var url = temp.attr("href")+'&param='+global.param+'&zone='+global.zone;
+            var temp = $(obj).parent('li');
+            window.alert(temp.attr('value'));
+            var url = temp.attr('value');
+            if(global.param != '' && global.zone != ''){
+                url += '&param='+global.param+'&zone='+global.zone;
+            }
+//            obj.href='#';
             window.alert(url);
             $.ajax({
                 url: url,
@@ -139,11 +141,9 @@
 <label>${param}:</label></div>
     <#list 1..count as key>
     <div style="float: left">
-        <form>
             <input type="hidden" id="${param}" value=${param} />
             <input type="hidden" id="zone" value="${key}" />
-            <input type="submit" value="${conditions[key - 1]}" onclick="getParam(this)" />
-        </form>
+            <input type="button" value="${conditions[key - 1]}" onclick="getParam(this)" />
     </div>
     </#list>
 </li><br>

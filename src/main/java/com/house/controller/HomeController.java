@@ -69,7 +69,7 @@ public class HomeController {
     public String selectBy(
             @RequestParam(name = "param", required = false) String param,
             @RequestParam(name = "zone", required = false) String zone,
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             Model model
     ) {
@@ -78,8 +78,16 @@ public class HomeController {
             map.put("param", param.toLowerCase());
             map.put("zone", zone);
         }
-        Page<HouseInfo> houseInfos = houseInfoService.findBy(map, pageNumber, pageSize);
+        for(String key : map.keySet())
+            System.out.println(key+":"+map.get(key));
+        Page<HouseInfo> houseInfos = houseInfoService.findBy(map,pageNumber - 1,pageSize);
+        List<HouseInfo> list = houseInfos.getContent();
+        for(HouseInfo houseInfo : houseInfos)
+            System.out.println(houseInfo.toString());
+
         List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
+        for(HouseInformation houseInformation : houseInformations)
+            System.out.println(houseInformation.toString());
         model.addAttribute("houseInfos", houseInformations);
         model.addAttribute("count", houseInfos.getTotalElements());
         model.addAttribute("pageSum", houseInfos.getTotalPages());

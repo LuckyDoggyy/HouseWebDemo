@@ -78,7 +78,7 @@
     </div>
     </body>
     <script>
-        var global;
+        var global={param:'',zone:''};
         $.ajax({
             url: '/selectBy',
             type: 'get',
@@ -111,8 +111,11 @@
         var getPage = function(obj){
             var temp = $(obj).parent('li');
             window.alert(temp.attr('value'));
-            var url = temp.attr('value')+'&param='+global.param+'&zone='+global.zone;
-            obj.href='#';
+            var url = temp.attr('value');
+            if(global.param != '' && global.zone != ''){
+                url += '&param='+global.param+'&zone='+global.zone;
+            }
+//            obj.href='#';
             window.alert(url);
             $.ajax({
                 url: url,

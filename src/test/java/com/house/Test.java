@@ -2,14 +2,13 @@ package com.house;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.house.controller.HomeController;
-import com.house.model.Broker;
-import com.house.model.HouseInfo;
-import com.house.model.HouseInformation;
-import com.house.model.ProxyIp;
+import com.house.model.*;
 import com.house.service.BrokerService;
 import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,6 +30,7 @@ public class Test {
     @Resource
     private BrokerService brokerService;
 
+    private static final Logger log = LoggerFactory.getLogger(Test.class);
 
     @org.junit.Test
     public void findAllByIdOrderByCreateTimeDesc(){
@@ -111,6 +111,18 @@ public class Test {
         }
 
     }
+
+/*
+    @org.junit.Test
+    public void findAll(){
+
+        List<HouseInfo> houseInfos = houseInfoService.findAll();
+
+        for(HouseInfo houseInfo : houseInfos)
+
+
+    }
+*/
 
 
 }

@@ -28,9 +28,11 @@ public interface HouseInfoDao extends
 
     @Override
     Page<HouseInfo> findAll(Specification<HouseInfo> specification, Pageable pageable);
+/*
 
-    @Override
+    @Query("from house_info order by pub_time desc")
     List<HouseInfo> findAll();
+*/
 
     //面积区间
     //@Query("from houseinfo as hi where hi.area between 1? and 2?")

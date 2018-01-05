@@ -6,6 +6,8 @@ import com.house.dao.HouseDao;
 import com.house.dao.HouseDescDao;
 import com.house.dao.HouseInfoDao;
 import com.house.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
@@ -33,6 +35,12 @@ public class HouseInfoService {
     @Resource
     private HouseInfoDao houseInfoDao;
 
+    private static final Logger log = LoggerFactory.getLogger(HouseInfoService.class);
+
+
+//    public List<HouseInfo> findAll(){
+//        return houseInfoDao.findAll();
+//    }
 
     //分页显示所有房产信息
     public Page<HouseInfo> findAll(int page, int size){
@@ -57,8 +65,6 @@ public class HouseInfoService {
 
         List<Integer> houseIds = new LinkedList<>();
 
-        for(House house : houses)
-            houseIds.add(house.getId());
 
         return houseIds;
 
@@ -73,6 +79,7 @@ public class HouseInfoService {
             descIds.add(houseInfo.getDescId());
             brokerIds.add(houseInfo.getBrokerId());
             houseIds.add(houseInfo.getHouseId());
+            log.info(houseInfo.toString());
         }
         Map<Integer, House> houseMap = new HashMap<>();
         Map<Integer, HouseDesc> descMap = new HashMap<>();
@@ -94,40 +101,11 @@ public class HouseInfoService {
             Broker broker = brokerMap.get(houseInfo.getBrokerId());
             HouseInformation houseInformation = getHouseInformation(houseInfo, broker, houseDesc, house);
             result.add(houseInformation);
+            log.info(houseInformation.toString());
         }
-        return result;
-    }
 
-    public List<HouseInformation> fromHouseInfosToHouseInformations(List<HouseInfo> houseInfos){
-        List<Integer> descIds = new LinkedList<>();
-        List<Integer> brokerIds = new LinkedList<>();
-        List<Integer> houseIds = new LinkedList<>();
-        for(HouseInfo houseInfo : houseInfos){
-            descIds.add(houseInfo.getDescId());
-            brokerIds.add(houseInfo.getBrokerId());
-            houseIds.add(houseInfo.getHouseId());
-        }
-        Map<Integer, House> houseMap = new HashMap<>();
-        Map<Integer, HouseDesc> descMap = new HashMap<>();
-        Map<Integer, Broker> brokerMap = new HashMap<>();
-        List<House> houses = houseDao.findAllByIdIn(houseIds);
-        List<HouseDesc> houseDescs = houseDescDao.findAllByIdIn(descIds);
-        List<Broker> brokers = brokerDao.findAllByIdIn(brokerIds);
-        for(House house : houses)
-            houseMap.put(house.getId(), house);
-        for(HouseDesc houseDesc : houseDescs)
-            descMap.put(houseDesc.getId(), houseDesc);
-        for(Broker broker : brokers)
-            brokerMap.put(broker.getId(), broker);
 
-        List<HouseInformation> result = new LinkedList<>();
-        for(HouseInfo houseInfo : houseInfos){
-            House house = houseMap.get(houseInfo.getHouseId());
-            HouseDesc houseDesc = descMap.get(houseInfo.getDescId());
-            Broker broker = brokerMap.get(houseInfo.getBrokerId());
-            HouseInformation houseInformation = getHouseInformation(houseInfo, broker, houseDesc, house);
-            result.add(houseInformation);
-        }
+
         return result;
     }
 

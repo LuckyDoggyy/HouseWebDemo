@@ -2,10 +2,7 @@ package com.house;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.house.controller.HomeController;
-import com.house.model.Broker;
-import com.house.model.HouseInfo;
-import com.house.model.HouseInformation;
-import com.house.model.ProxyIp;
+import com.house.model.*;
 import com.house.service.BrokerService;
 import com.house.service.HouseInfoService;
 import com.house.service.ProxyIpService;
@@ -34,7 +31,6 @@ public class Test {
     private BrokerService brokerService;
 
     private static final Logger log = LoggerFactory.getLogger(Test.class);
-
 
     @org.junit.Test
     public void findAllByIdOrderByCreateTimeDesc(){
@@ -116,15 +112,18 @@ public class Test {
 
     }
 
+
+/*
     @org.junit.Test
     public void findAll(){
-        List<HouseInfo> list = houseInfoService.findAll();
-        for(HouseInfo houseInfo : list){
-            log.info("houseInfoId {}, houseInfoPubTime {}",houseInfo.getId(),houseInfo.getPubTime());
-        }
+
+        List<HouseInfo> houseInfos = houseInfoService.findAll();
+
+        for(HouseInfo houseInfo : houseInfos)
 
 
     }
+*/
 
 
 }

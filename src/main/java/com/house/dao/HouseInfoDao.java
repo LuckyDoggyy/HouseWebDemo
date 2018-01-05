@@ -30,20 +30,8 @@ public interface HouseInfoDao extends
     @Override
     Page<HouseInfo> findAll(Specification<HouseInfo> specification, Pageable pageable);
 
-    @Query("from house_info order by pub_time desc")
-    List<HouseInfo> findAll();
-
-    //插入房产信息
-    @Override
-    HouseInfo save(HouseInfo houseInfo);
-
-    //根据价格、面积、发布时间排序
-    @Override
-    Page<HouseInfo> findAll(Sort sort);
 
     /*
-    @Override
-    List<HouseInfo> findAll();
 
     //面积区间
     //@Query("from houseinfo as hi where hi.area between 1? and 2?")

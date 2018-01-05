@@ -10,10 +10,9 @@
         </layout>
     </appender>
 
-<!--
     <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data1/logs/errorlog/errorlog_webapps.log" />
-        <param name="DatePattern" value=".yyyy-MM-dd" />
+        <param name="File" value="/home/xuxyu/logs/daily_log.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd hh:mm:ss" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%-5p %d [%t] %c{1} - %m%n" />
@@ -21,35 +20,39 @@
     </appender>
 
 
-    <appender name="log-merge" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data1/logs/errorlog/errorlog_log_merge.log" />
-        <param name="DatePattern" value=".yyyy-MM-dd" />
-        <param name="Append" value="true" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %d [%t] %c{1} - %m%n" />
-        </layout>
-    </appender>
+    <!--
+        <appender name="log-merge" class="org.apache.log4j.DailyRollingFileAppender">
+            <param name="File" value="/data1/logs/errorlog/errorlog_log_merge.log" />
+            <param name="DatePattern" value=".yyyy-MM-dd" />
+            <param name="Append" value="true" />
+            <layout class="org.apache.log4j.PatternLayout">
+                <param name="ConversionPattern" value="%-5p %d [%t] %c{1} - %m%n" />
+            </layout>
+        </appender>
 
-    <logger name="MERGELOG" additivity="false">
-        <level value="info"/>
-        <appender-ref ref="log-merge"/>
-    </logger>
+        <logger name="MERGELOG" additivity="false">
+            <level value="info"/>
+            <appender-ref ref="log-merge"/>
+        </logger>
 
 
 
-    <logger name="com.house">
-        <level value="info"/>
-    </logger>
+        <logger name="com.house">
+            <level value="info"/>
+        </logger>
 
-    <logger name="org.springframework">
-        <level value="info"/>
-    </logger>
-    <logger name="org.apache.http">
-        <level value="info"/>
-    </logger>
-    -->
+        <logger name="org.springframework">
+            <level value="info"/>
+        </logger>
+
+        <logger name="org.apache.http">
+            <level value="info"/>
+        </logger>
+        -->
     <root>
         <priority value="info"/>
         <appender-ref ref="console"/>
+        <appender-ref ref="file" />
     </root>
+
 </log4j:configuration>

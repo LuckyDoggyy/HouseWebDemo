@@ -5,9 +5,7 @@ import com.house.model.Broker;
 import com.house.model.HouseInfo;
 import com.house.model.HouseInformation;
 import com.house.service.BrokerService;
-import com.house.service.HouseDescService;
 import com.house.service.HouseInfoService;
-import com.house.service.HouseService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -31,12 +28,6 @@ public class HomeController {
 
     @Resource
     private HouseInfoService houseInfoService;
-
-    @Resource
-    private HouseDescService houseDescService;
-
-    @Resource
-    private HouseService houseService;
 
     @RequestMapping(value = {"/", "/houseInfos"}, method = RequestMethod.GET)
     public String showAllHouseInfosWithSession(
@@ -84,24 +75,13 @@ public class HomeController {
             System.out.println(key+":"+map.get(key));
         Page<HouseInfo> houseInfos = houseInfoService.findBy(map,pageNumber - 1,pageSize);
         List<HouseInfo> list = houseInfos.getContent();
-        for(HouseInfo houseInfo : houseInfos)
-            System.out.println(houseInfo.toString());
-
         List<HouseInformation> houseInformations = houseInfoService.getHouseInformations(houseInfos);
-        for(HouseInformation houseInformation : houseInformations)
-            System.out.println(houseInformation.toString());
 
         model.addAttribute("houseInfos", houseInformations);
         model.addAttribute("count", houseInfos.getTotalElements());
         model.addAttribute("pageSum", houseInfos.getTotalPages());
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNumber", pageNumber);
-        /*
-        model.addAttribute("count", houseInfos.getTotalElements());
-        model.addAttribute("pageSum", houseInfos.getTotalPages());
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("pageNumber", pageNumber);
-        */
         return "/infotable";
     }
 

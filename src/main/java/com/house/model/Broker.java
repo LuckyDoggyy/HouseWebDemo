@@ -1,10 +1,14 @@
 package com.house.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "broker")
-public class Broker {
+public class Broker implements Serializable{
+
+
+    private static final long serialVersionUID = 2674080684112186591L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

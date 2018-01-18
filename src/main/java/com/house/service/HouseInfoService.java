@@ -62,6 +62,10 @@ public class HouseInfoService {
 
         List<Integer> houseIds = new LinkedList<>();
 
+        for(House house : houses) {
+            log.info("%d\t",house.getId());
+            houseIds.add(house.getId());
+        }
 
         return houseIds;
 
@@ -84,6 +88,7 @@ public class HouseInfoService {
         List<House> houses = houseDao.findAllByIdIn(houseIds);
         List<HouseDesc> houseDescs = houseDescDao.findAllByIdIn(descIds);
         List<Broker> brokers = brokerDao.findAllByIdIn(brokerIds);
+
         for(House house : houses)
             houseMap.put(house.getId(), house);
         for(HouseDesc houseDesc : houseDescs)
@@ -119,13 +124,14 @@ public class HouseInfoService {
 
     public Page<HouseInfo> findBy(Map<String,String> map, int pageNumber, int pageSize){
 
+        Pageable pageable = new PageRequest(pageNumber,pageSize);
+
         if(map.size() == 0){
-            return houseInfoDao.findAll(new PageRequest(pageNumber,pageSize));
+            return houseInfoDao.findAll(pageable);
         }
-        Sort.Order [] orders = new Sort.Order[2];
+/*      Sort.Order [] orders = new Sort.Order[2];
         orders[0] = new Sort.Order(Sort.Direction.DESC,"pubTime");
-        orders[1] = new Sort.Order(Sort.Direction.ASC, "brokerId");
-        Pageable pageable = new PageRequest(pageNumber,pageSize, new Sort(orders));
+        orders[1] = new Sort.Order(Sort.Direction.ASC, "brokerId");*/
 
         Specification<HouseInfo> spec = this.buildPageCondition(map);
         return houseInfoDao.findAll(spec, pageable);
@@ -162,27 +168,26 @@ public class HouseInfoService {
                         Path<Integer> expression = root.get("houseId");
                         switch (map.get("zone")){
                             case "1" : {
-
-                                predicate = /* list.add(*/expression.in(findByBedroom(1));
+                                predicate = expression.in(findByBedroom(1));
                                 break;
                             }case "2" : {
-                                predicate = /* list.add(*/expression.in(findByBedroom(2));
+                                predicate = expression.in(findByBedroom(2));
                                 break;
                             }case "3" : {
-                                predicate = /* list.add(*/expression.in(findByBedroom(3));
+                                predicate = expression.in(findByBedroom(3));
                                 break;
                             }case "4" : {
-                                predicate = /* list.add(*/expression.in(findByBedroom(4));
+                                predicate = expression.in(findByBedroom(4));
                                 break;
                             }case "5" : {
-                                predicate = /* list.add(*/expression.in(findByBedroom(5));
+                                predicate = expression.in(findByBedroom(5));
                                 break;
                             }
                         }
                     }
 
 //                    Predicate [] predicates = list.toArray(new Predicate[list.size()]);
-                    query.where(predicate)/*.orderBy(cb.desc(root.get("pubTime"))).orderBy(cb.asc(root.get("id")))*/;
+                    query.where(predicate).orderBy(cb.desc(root.get("pubTime"))).orderBy(cb.asc(root.get("brokerId")));
 
                 return null;
             }

@@ -25,19 +25,18 @@ public interface HouseDao
 
     List<House> findAllByIdIn(Iterable<Integer> ids);
 
-//    List<House> findByIdIn(Iterable<Integer> ids);
-
     //查找1,2,3,4室的房产信息
     List<House> findAllByBedroom(int bedroom);
 
-/*
+    //4室以上房产信息
+    List<House> findAllByBedroomGreaterThan(int start);
+
+    /*   List<House> findByIdIn(Iterable<Integer> ids);
+
     //正确？
     @Modifying
     @Query("insert into house hd values(?1, ?2)")
     boolean addNewDesc(int id, String desc);
     */
-
-    //4室以上房产信息
-    List<House> findAllByBedroomGreaterThan(int start);
 
 }

@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+//@RequestMapping("/HouseWebDemo")
 public class BrokerController {
 
     @Resource
@@ -55,7 +55,7 @@ public class BrokerController {
             return result;
         }
 
-        HouseInfo houseInfo = brokerService.addNewHouseInfo(title, area,
+        HouseInfo houseInfo = brokerService.addNewHouseInfo( title, area,
 
                 floor, totalFloor, price, description, houseId, broker.getId());
 

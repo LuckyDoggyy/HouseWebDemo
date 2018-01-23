@@ -1,12 +1,13 @@
 <#import "spring.ftl" as spring />
 <#import "common.ftl" as common />
+<#escape x as x?html>
 <@common.page "House Informations" >
 <div>
     <#if broker?exists>
-        <a href="/addHouseInfoPage">${broker.name}</a>
-        <a id="outhref" href="/logout">退出</a>
+        <a href="/HouseWebDemo/addHouseInfoPage">${broker.name}</a>
+        <a id="outhref" href="<#--${base}-->/HouseWebDemo/logout">退出</a>
         <#else >
-        <a href="/welcome">登录</a>
+        <a href="<#--${base}-->/HouseWebDemo/welcome">登录</a>
     </#if>
 </div>
 <script>
@@ -15,3 +16,4 @@
     });
 </script>
 </@common.page>
+</#escape>

@@ -8,6 +8,8 @@ import com.house.model.Broker;
 import com.house.model.House;
 import com.house.model.HouseDesc;
 import com.house.model.HouseInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +17,8 @@ import java.util.Date;
 
 @Service
 public class BrokerService {
+
+    private static final Logger log = LoggerFactory.getLogger(BrokerService.class);
 
     @Resource
     private BrokerDao brokerDao;
@@ -59,6 +63,9 @@ public class BrokerService {
                 houseDesc.getId(), brokerId,
                 houseId, new Date());
 
+        log.info("insert new house information " + title + " " + area + " "
+                + floor + " " + totalFloor + " " + " " + price + " "
+                + description + " " + houseId + " " + brokerId);
         return houseInfoDao.save(houseInfo);
 
     }

@@ -1,6 +1,7 @@
 <#import "/spring.ftl" as spring />
+<#escape x as x?html>
 <#macro page title>
-    <#escape x as x?html>
+    <#assign base=request.contextPath />
     <!DOCTYPE html>
     <html>
     <head>
@@ -8,7 +9,7 @@
         <meta http-equiv="pragma" content="no-cache"/>
         <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
         <meta http-equiv="expires" content="0"/>
-        <title>${title}</title>
+        <title>version2.0</title>
         <style>
             body {
                 padding-top: 60px;
@@ -34,7 +35,7 @@
         <!-- Bootstrap styles -->
     <#--<link href="<@spring.url "/common/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet" >-->
         <!-- Generic page styles -->
-        <link rel="stylesheet" href="/common/jQuery-File-Upload-master/css/style.css">
+        <link rel="stylesheet" href="${base}/common/jQuery-File-Upload-master/css/style.css">
         <!-- blueimp Gallery styles -->
 
 
@@ -42,14 +43,14 @@
 
 
         <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-        <link rel="stylesheet" href="/common/jQuery-File-Upload-master/css/jquery.fileupload.css">
-        <link rel="stylesheet" href="/common/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
-        <link href="/common/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="/common/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" rel="stylesheet"/>
-        <link href="/common/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
+        <link rel="stylesheet" href="${base}/common/jQuery-File-Upload-master/css/jquery.fileupload.css">
+        <link rel="stylesheet" href="${base}/common/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
+        <link href="${base}/common/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="${base}/common/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="${base}/common/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
               media="screen"/>
-        <script src="/common/jquery-3.2.0.min.js"></script>
-        <script src="/common/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+        <script src="${base}/common/jquery-3.2.0.min.js"></script>
+        <script src="${base}/common/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
 
 
         <#--<script src="/common/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>-->
@@ -58,10 +59,10 @@
 
         <!-- CSS adjustments for browsers with JavaScript disabled -->
         <noscript>
-            <link rel="stylesheet" href="/common/jQuery-File-Upload-master/css/jquery.fileupload-noscript.css">
+            <link rel="stylesheet" href="${base}/common/jQuery-File-Upload-master/css/jquery.fileupload-noscript.css">
         </noscript>
         <noscript>
-            <link rel="stylesheet" href="/common/jQuery-File-Upload-master/css/jquery.fileupload-ui-noscript.css">
+            <link rel="stylesheet" href="${base}/common/jQuery-File-Upload-master/css/jquery.fileupload-ui-noscript.css">
         </noscript>
     </head>
     <body>
@@ -80,7 +81,7 @@
     <script>
         var global={param:'',zone:''};
         $.ajax({
-            url: '/selectBy',
+            url: '<#--${base}-->/HouseWebDemo/selectBy',
             type: 'get',
             async : true,
             timeout:5000,
@@ -95,7 +96,7 @@
                 param:$(obj).prev().prev().val()
             };
             $.ajax({
-                url : "/selectBy",
+                url : "<#--${base}-->/HouseWebDemo/selectBy",
                 type : "get",
                 async : true,
                 data : global,
@@ -116,9 +117,10 @@
                 url += '&param='+global.param+'&zone='+global.zone;
             }
 //            obj.href='#';
-            window.alert(url);
+            window.alert(<#--${base}-->url);
+
             $.ajax({
-                url: url,
+                url: <#--${base}-->url,
                 type:'get',
                 async : true,
                 success:function(result){
@@ -131,8 +133,8 @@
 
     </script>
     </html>
-    </#escape>
 </#macro>
+</#escape>
 
 
 <#macro selection param count conditions >
@@ -146,5 +148,6 @@
             <input type="button" value="${conditions[key - 1]}" onclick="getParam(this)" />
     </div>
     </#list>
-</li><br>
+</li>
+<br>
 </#macro>

@@ -1,3 +1,4 @@
+<#escape x as x?html>
 <table border="1">
     <thead>
     <tr>
@@ -41,7 +42,7 @@
     </tbody>
 </table>
 <#if pageSum gt 1>
-    <#assign baseUrl="/selectBy?pageSize=${pageSize}&pageNumber=">
+    <#assign baseUrl="/HouseWebDemo/selectBy?pageSize=${pageSize}&pageNumber=">
 <div align="center">
     <ul class="pagination">
         <#if pageNumber == 1 >
@@ -79,3 +80,4 @@
     </ul>
 </div>
 </#if>
+</#escape>

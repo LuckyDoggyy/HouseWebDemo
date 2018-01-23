@@ -11,7 +11,6 @@
 
     <mvc:default-servlet-handler/>
     <mvc:resources mapping="/common/**" location="/common/"/>
-
 <!--    <context:property-placeholder
             location="classpath:sso.properties,file:///home/www/config/java/sso.properties"
             ignore-resource-not-found="true"/>-->
@@ -29,6 +28,7 @@
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="requestContextAttribute" value="request" />
         <property name="suffix">
             <value>.ftl</value>
         </property>

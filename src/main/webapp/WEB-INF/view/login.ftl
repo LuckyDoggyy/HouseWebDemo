@@ -1,7 +1,9 @@
+<#escape x as x?html>
+<#assign base=request.contextPath />
 <html>
 <head>
     <title>Broker Login</title>
-    <script src="/common/jquery-3.2.0.min.js"></script>
+    <script src="${base}/common/jquery-3.2.0.min.js"></script>
 </head>
     <div style="width:200px;float:left;">
         <form id="loginForm">
@@ -17,13 +19,13 @@
         var param = {username: username,password: password};
         $.ajax({
             type:"post",
-            url:"/login",
+            url:"<#--${base}-->/HouseWebDemo/login",
             data: param,
             success:function(result){
                 console.log(result.status);
                 if(result.status == "success"){
                     window.alert("Login successful. Jump to house information.");
-                    window.location.href="/houseInfos";
+                    window.location.href="/HouseWebDemo/houseInfos";
                     return false;
                 }else{
                     window.alert(result.status);
@@ -36,3 +38,4 @@
     })
 </script>
 </html>
+</#escape>

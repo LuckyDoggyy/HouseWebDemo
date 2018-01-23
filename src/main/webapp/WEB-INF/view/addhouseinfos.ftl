@@ -1,7 +1,9 @@
+<#assign base=request.contextPath />
+<#escape x as x?html>
 <html>
 <head>
     <title>Add House Information</title>
-    <script src="/common/jquery-3.2.0.min.js"></script>
+    <script src="${base}/common/jquery-3.2.0.min.js"></script>
 </head>
 <div style="width:100%;float:left;">
     <form id="houseInfoForm">
@@ -65,7 +67,7 @@
         };
         $.ajax({
             type: 'post',
-            url: '/addHouseInfo',
+            url: '<#--${base}-->/HouseWebDemo/addHouseInfo',
             data: param,
             success: function (result) {
                 console.log(result.status);
@@ -97,7 +99,7 @@
         };
         $.ajax({
             type:'post',
-            url:'/addHouse',
+            url:'<#--${base}-->/HouseWebDemo/addHouse',
             data: houseParam,
             success:function(result){
                 console.log(result);
@@ -111,3 +113,4 @@
     });
 </script>
 </html>
+</#escape>
